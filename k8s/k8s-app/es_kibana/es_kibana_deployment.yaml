@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service-name: elasticsearch
+  name: elasticsearch
+spec:
+  clusterIP: 
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: es
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  - name: es-rsync
+    port: 9300
+    protocol: TCP
+    targetPort: 9300
+  selector:
+    application-real-name: elasticsearch-20180428133944447
+    image-group-name: elasticsearch
+    version-id: elasticsearch
+  sessionAffinity: None
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    image-group-name: elasticsearch
+    version-id: elasticsearch
+  name: elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      image-group-name: elasticsearch
+  template:
+    metadata:
+      labels:
+        application-real-name: elasticsearch-20180428133944447
+        image-group-name: elasticsearch
+        version-id: elasticsearch
+    spec:
+      nodeSelector:
+        elasticsearch: enabled
+      containers:
+      - name: elasticsearch
+        image: registry.example.com:5000/elasticsearch:5.6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9200
+          name: es-data
+          protocol: TCP
+        - containerPort: 9300
+          name: es-rsync
+          protocol: TCP
+        livenessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /
+            port: 9200
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        readinessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /
+            port: 9200
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 2
+            memory: 2Gi
+          requests:
+            cpu: 512m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /usr/share/elasticsearch/data
+          name: esdata
+      dnsPolicy: ClusterFirst
+      volumes:
+      - hostPath:
+          path: /var/lib/es_data
+          type: ""
+        name: esdata
+

@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/display-name: MySQL
+    openshift.io/image.dockerRepositoryCheck: 2018-06-29T15:34:13Z
+  creationTimestamp: null
+  generation: 2
+  name: mysql
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      description: |-
+        Provides a MySQL database on RHEL 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/tree/master/5.6/README.md.
+
+        WARNING: By selecting this tag, your application will automatically update to use the latest version of MySQL available on OpenShift, including major versions updates.
+      iconClass: icon-mysql-database
+      openshift.io/display-name: MySQL (Latest)
+      openshift.io/provider-display-name: Red Hat, Inc.
+      tags: mysql
+    from:
+      kind: ImageStreamTag
+      name: "5.7"
+    generation: 1
+    importPolicy: {}
+    name: latest
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: ""

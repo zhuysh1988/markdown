@@ -1,0 +1,75 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: gogs
+  name: gogs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gogs
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: gogs
+    spec:
+      containers:
+      - image: registry.example.com:5000/gogs:latest
+        imagePullPolicy: IfNotPresent
+        name: gogs
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 3
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 800m
+            memory: 2Gi
+          requests:
+            cpu: 400m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /data
+          name: gogs-data
+        - mountPath: /opt/gogs/custom/conf
+          name: gogs-config
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      volumes:
+      - name: gogs-data
+        persistentVolumeClaim:
+          claimName: gogs-data
+      - configMap:
+          items:
+          - key: app.ini
+            path: app.ini
+          name: gogs-config
+        name: gogs-config
+

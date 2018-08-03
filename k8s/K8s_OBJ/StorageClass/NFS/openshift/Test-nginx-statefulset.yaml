@@ -1,0 +1,29 @@
+kind: StatefulSet
+apiVersion: apps/v1beta1
+metadata:
+  name: nginx-app
+spec:
+  serviceName: "nginx-app"
+  replicas: 2
+  volumeClaimTemplates:
+  - metadata:
+      name: html
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "example-nfs"
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Mi
+  template:
+    metadata:
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+        - name: nginx-app
+          image: registry.example.com:5000/nginx:latest
+          imagePullPolicy: "IfNotPresent"
+          volumeMounts:
+            - name: html
+              mountPath: "/usr/share/nginx/html/"

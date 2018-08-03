@@ -1,0 +1,56 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nfs-provisioner
+  labels:
+    app: nfs-provisioner
+spec:
+  ports:
+    - name: nfs
+      port: 2049
+    - name: mountd
+      port: 20048
+    - name: rpcbind
+      port: 111
+    - name: rpcbind-udp
+      port: 111
+      protocol: UDP
+  selector:
+    app: nfs-provisioner
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: nfs-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate 
+  template:
+    metadata:
+      labels:
+        app: nfs-provisioner
+    spec:
+      serviceAccount: nfs-provisioner
+      containers:
+        - name: nfs-provisioner
+          image: registry.cn-hangzhou.aliyuncs.com/jhr-k8s/nfs-client-provisioner:latest
+          env:
+            - name: PROVISIONER_NAME
+              value: example.com/nfs
+            - name: NFS_SERVER
+              value: 192.168.6.85
+            - name: NFS_PATH
+              value: /nfs
+          imagePullPolicy: "IfNotPresent"
+          volumeMounts:
+            - name: export-volume
+              mountPath: /persistentvolumes
+      volumes:
+        - name: export-volume
+          nfs:
+            server: 192.168.6.85
+            path: /nfs
+#          hostPath:
+#            path: /srv
+

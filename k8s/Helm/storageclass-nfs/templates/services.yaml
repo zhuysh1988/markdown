@@ -1,0 +1,30 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.rbac }}
+  namespace: {{ .Values.namespace }} 
+  labels:
+    {{ .Values.lables.company.key }}: {{ .Values.lables.company.value }}
+    {{ .Values.lables.department.key }}: {{ .Values.lables.department.value }}
+    {{ .Values.lables.group.key }}: {{ .Values.lables.group.value }}
+    {{ .Values.lables.environment.key }}: {{ .Values.lables.environment.value }}
+    app: {{ .Values.rbac }}
+    version: {{ .Chart.Version | replace "+" "_" }}    
+spec:
+  ports:
+    - name: nfs
+      port: 2049
+    - name: mountd
+      port: 20048
+    - name: rpcbind
+      port: 111
+    - name: rpcbind-udp
+      port: 111
+      protocol: UDP
+  selector:
+    {{ .Values.lables.company.key }}: {{ .Values.lables.company.value }}
+    {{ .Values.lables.department.key }}: {{ .Values.lables.department.value }}
+    {{ .Values.lables.group.key }}: {{ .Values.lables.group.value }}
+    {{ .Values.lables.environment.key }}: {{ .Values.lables.environment.value }}
+    app: {{ .Values.rbac }}
+    version: {{ .Chart.Version | replace "+" "_" }}    

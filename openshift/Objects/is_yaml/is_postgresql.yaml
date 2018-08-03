@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/display-name: PostgreSQL
+    openshift.io/image.dockerRepositoryCheck: 2018-06-29T15:34:13Z
+  creationTimestamp: null
+  generation: 2
+  name: postgresql
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      description: |-
+        Provides a PostgreSQL database on RHEL 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/tree/master/9.5.
+
+        WARNING: By selecting this tag, your application will automatically update to use the latest version of PostgreSQL available on OpenShift, including major versions updates.
+      iconClass: icon-postgresql
+      openshift.io/display-name: PostgreSQL (Latest)
+      openshift.io/provider-display-name: Red Hat, Inc.
+      tags: postgresql
+    from:
+      kind: ImageStreamTag
+      name: "9.5"
+    generation: 1
+    importPolicy: {}
+    name: latest
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: ""

@@ -1,0 +1,114 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2018-05-10T01:33:59Z
+    labels:
+      name: label-component-zk-cluster-tjsw-0
+    name: zk-cluster-0
+    namespace: default
+    resourceVersion: "6282460"
+    selfLink: /api/v1/namespaces/default/services/zk-cluster-0
+    uid: 36b0196f-53f2-11e8-8203-005056a22f80
+  spec:
+    clusterIP: 172.20.186.73
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-2181
+      nodePort: 31017
+      port: 2181
+      protocol: TCP
+      targetPort: 2181
+    - name: port-2888
+      nodePort: 32076
+      port: 2888
+      protocol: TCP
+      targetPort: 2888
+    - name: port-3888
+      nodePort: 31296
+      port: 3888
+      protocol: TCP
+      targetPort: 3888
+    selector:
+      app: zk0
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2018-05-10T01:33:59Z
+    labels:
+      name: label-component-zk-cluster-tjsw-1
+    name: zk-cluster-1
+    namespace: default
+    resourceVersion: "6282466"
+    selfLink: /api/v1/namespaces/default/services/zk-cluster-1
+    uid: 36b2ee7b-53f2-11e8-8203-005056a22f80
+  spec:
+    clusterIP: 172.20.106.14
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-2181
+      nodePort: 31151
+      port: 2181
+      protocol: TCP
+      targetPort: 2181
+    - name: port-2888
+      nodePort: 30961
+      port: 2888
+      protocol: TCP
+      targetPort: 2888
+    - name: port-3888
+      nodePort: 30941
+      port: 3888
+      protocol: TCP
+      targetPort: 3888
+    selector:
+      app: zk1
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2018-05-10T01:34:00Z
+    labels:
+      name: label-component-zk-cluster-tjsw-2
+    name: zk-cluster-2
+    namespace: default
+    resourceVersion: "6282472"
+    selfLink: /api/v1/namespaces/default/services/zk-cluster-2
+    uid: 36b7ce2e-53f2-11e8-8203-005056a22f80
+  spec:
+    clusterIP: 172.20.7.25
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-2181
+      nodePort: 31182
+      port: 2181
+      protocol: TCP
+      targetPort: 2181
+    - name: port-2888
+      nodePort: 31476
+      port: 2888
+      protocol: TCP
+      targetPort: 2888
+    - name: port-3888
+      nodePort: 31227
+      port: 3888
+      protocol: TCP
+      targetPort: 3888
+    selector:
+      app: zk2
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        ports:
+        - containerPort: 10080
+          name: nginx-http
+          protocol: TCP
+        volumeMounts:
+        - name: nginx-config-dir
+          mountPath: /etc/nginx/conf.d
+        - name: index-dir
+          mountPath: /opt            
+      volumes:
+        - name: nginx-config-dir
+          configMap:
+            name: nginx-config
+            items:
+            - key: conf-file
+              path: default.conf
+        - name: index-dir
+          configMap:
+            name: nginx-config
+            items:
+            - key: index-file
+              path: index.html

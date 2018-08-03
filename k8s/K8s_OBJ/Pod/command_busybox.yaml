@@ -1,0 +1,1 @@
+kubectl run busybox --rm -ti --image=busybox /bin/sh

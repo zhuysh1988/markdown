@@ -1,0 +1,98 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: 2018-05-10T01:34:00Z
+  generation: 1
+  labels:
+    app: zk2
+    ceshi: ceshi
+    name: label-component-zk-cluster-tjsw-2
+  name: zk-cluster-tjsw-2
+  namespace: default
+  resourceVersion: "6282540"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/zk-cluster-tjsw-2
+  uid: 36bdbdf2-53f2-11e8-8203-005056a22f80
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zk2
+      ceshi: ceshi
+      name: label-component-zk-cluster-tjsw-2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: zk2
+        ceshi: ceshi
+        name: label-component-zk-cluster-tjsw-2
+    spec:
+      containers:
+      - env:
+        - name: ZOO_MY_ID
+          value: "2"
+        - name: ZOO_SERVERS
+          value: server.0=zk-cluster-0:2888:3888 server.1=zk-cluster-1:2888:3888 server.2=0.0.0.0:2888:3888
+        - name: ZOO_DATA_DIR
+          value: /data/zk-data
+        - name: ZOO_DATA_LOG_DIR
+          value: /data/zk-logs
+        - name: ZOO_TICK_TIME
+          value: "1000"
+        - name: ZOO_SYNC_LIMIT
+          value: "2"
+        image: abcsys.cn:5000/appstore-zookeeper:3.4.10
+        imagePullPolicy: IfNotPresent
+        name: zk-cluster-com-2
+        ports:
+        - containerPort: 2181
+          protocol: TCP
+        - containerPort: 2888
+          protocol: TCP
+        - containerPort: 3888
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 800m
+            memory: 2Gi
+          requests:
+            cpu: 400m
+            memory: 512Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data/zk-data
+          name: zk-data
+        - mountPath: /data/zk-logs
+          name: zk-logs
+      dnsPolicy: ClusterFirst
+      hostname: zk-cluster-2
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: zk-data
+      - emptyDir: {}
+        name: zk-logs
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: 2018-05-10T01:34:00Z
+    lastUpdateTime: 2018-05-10T01:34:00Z
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

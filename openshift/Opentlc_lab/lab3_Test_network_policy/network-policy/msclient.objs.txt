@@ -1,0 +1,10 @@
+NAME                 READY     STATUS      RESTARTS   AGE
+po/userreg-1-build   0/1       Completed   0          2h
+po/userreg-1-h9n96   1/1       Running     0          2h
+NAME          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+svc/userreg   ClusterIP   172.30.112.75   <none>        8080/TCP,8443/TCP   2h
+NAME             HOST/PORT                                        PATH      SERVICES   PORT       TERMINATION   WILDCARD
+routes/userreg   userreg-msclient.apps.99a0.example.opentlc.com             userreg    8080-tcp                 None
+NAME                         POD-SELECTOR   AGE
+netpol/allow-8080-frontend   app=userreg    5m
+netpol/default-deny          <none>         6m

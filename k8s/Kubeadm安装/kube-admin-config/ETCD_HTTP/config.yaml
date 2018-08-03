@@ -1,0 +1,31 @@
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+etcd:
+  endpoints:
+  - http://192.168.1.112:2379
+  - http://192.168.1.113:2379
+  - http://192.168.1.114:2379
+
+networking:
+  podSubnet: 10.255.255.0/24
+  serviceSubnet: 172.255.255.0/24
+kubernetesVersion: 1.10.0
+api:
+  advertiseAddress: "192.168.1.117"
+token: "b99a00.a144ef80536d4344"
+tokenTTL: "0s"
+apiServerCertSANs:
+- master1.example.com
+- master2.example.com
+- master3.example.com
+- 192.168.1.112
+- 192.168.1.113
+- 192.168.1.114
+- 192.168.1.117
+- 192.168.1.115
+- 192.168.1.116
+- 192.168.1.118
+featureGates:
+  CoreDNS: true
+imageRepository: "registry.cn-hangzhou.aliyuncs.com/jhr-k8s"
+

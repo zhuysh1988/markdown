@@ -1,0 +1,171 @@
+
+---
+# configure-zabbix-agents.yml
+- name: configure nodes for docker monitoring in zabbix
+  hosts: nodes
+  gather_facts: no
+  remote_user: ec2_user
+  become: yes
+  become_user: root
+  handlers:
+    - name: restart zabbix agent
+      service:
+        name: zabbix-agent
+        state: restarted
+  tasks:
+  - name: sudoers for Zabbix
+    copy:
+      dest: /etc/sudoers.d/zabbix
+      content: |
+        Defaults:zabbix   visiblepw
+        Defaults:zabbix   !requiretty
+        zabbix ALL=(ALL) NOPASSWD: /bin/docker ps *
+        zabbix ALL=(ALL) NOPASSWD: /sbin/lvs *
+
+  - name: check if zabbix_agent_t is permissive
+    shell: semanage permissive -l|grep zabbix_agent_t
+    ignore_errors: yes
+    register: permissive
+    changed_when: false
+
+  - name: Set zabbix agent permissive in SElinux
+    command: semanage permissive -a zabbix_agent_t
+    when: permissive|failed
+
+  - name: Create userParameter for key docker.ps[]
+    copy:
+      dest: /etc/zabbix/zabbix_agentd.d/docker.conf
+      content: |
+        UserParameter=docker.ps[*],sudo docker ps -q -f $1|wc -l
+    notify: restart zabbix agent
+
+  - name: Create userParameter for lvm.data[]
+    copy:
+      dest: /etc/zabbix/zabbix_agentd.d/lvm.conf
+      content: |
+        UserParameter=lvm.data[*],LVM_SUPPRESS_FD_WARNINGS=1 sudo lvs --no-heading -o lv_name,$2|awk '$$1 == "$1" { print $$2 }'
+    notify: restart zabbix agent
+
+  - name: Create userParameter for openshift_node.requests[]
+    copy:
+      dest: /etc/zabbix/zabbix_agentd.d/requests.conf
+      content: |
+        UserParameter=openshift_node.requests[*],/opt/monitoring/requests.sh $1
+    notify: restart zabbix agent
+
+  - name: install bc
+    yum:
+      name: bc
+      state: present
+
+- name: configure zabbix SA and fetch TOKEN and URL
+  hosts: masters[0]
+  tasks:
+  - name: check if Zabbix SA exists
+    command: oc get sa zabbix -n default
+    register: sacommand
+    ignore_errors: yes
+    changed_when: false
+
+  - name: create Zabbix SA
+    command: oc create sa zabbix -n default
+    when: sacommand | failed
+
+  - name: add policy for zabbix SA
+    command: oc adm policy add-cluster-role-to-user cluster-reader system:serviceaccount:default:zabbix -n default
+    when: sacommand | failed
+
+  - name: get token (step 1)
+    shell: "{% raw %}oc get sa/zabbix -n default --template='{{range .secrets}}{{ .name }} {{end}}' | xargs -n 1 oc get secret --template='{{ if .data.token }}{{ .data.token }}{{end}}' | head -n 1 | base64 -d - > /tmp/zabbix.token{% endraw %}"
+    changed_when: false
+
+  # cannot use register directly in step 1 as there seem to be a bug in ansible
+  # this workaround works
+  - name: get token (step 2)
+    command: cat /tmp/zabbix.token
+    register: token
+
+  - name: remove temp file
+    file:
+      path: /tmp/zabbix.token
+      state: absent
+
+  - name: get Hawkular route
+    command: "oc get route/hawkular-metrics -n openshift-infra --template='{% raw %}{{ .spec.host }}{% endraw %}'"
+    register: hawkular
+    changed_when: false
+
+  - name: set facts for hawkular and token zabbix
+    set_fact:
+      token: "{{ token.stdout }}"
+      hawkular: "{{ hawkular.stdout }}"
+    when:
+      - token | succeeded
+      - hawkular | succeeded
+
+- name: configure nodes for docker monitoring in zabbix
+  hosts: nodes
+  gather_facts: no
+  vars:
+    token: "{{ hostvars[groups['masters'][0]].token }}"
+    hawkular: "{{ hostvars[groups['masters'][0]].hawkular }}"
+  tasks:
+  - name: remove /etc/zabbix/request.rc (renamed requests.rc)
+    file:
+      path: /etc/zabbix/request.rc
+      state: absent
+
+  - name: create config file for requests.sh script
+    copy:
+      dest: /etc/zabbix/requests.rc
+      content: |
+        TOKEN={{ token}}
+        HAWKULAR={{ hawkular}}
+      owner: zabbix
+      mode: 0600
+
+  - name: create /opt/monitoring
+    file:
+      path: /opt/monitoring
+      state: directory
+
+  - name: remove request.sh (renamed requests.sh)
+    file:
+      path: /opt/monitoring/request.sh
+      state: absent
+
+  - name: create requests.sh
+    copy:
+      dest: /opt/monitoring/requests.sh
+      mode: 0755
+      owner: root
+      content: |
+        #!/bin/bash
+        set -euo pipefail
+
+        # example usage
+        # ./requests.sh memory
+        # ./requests.sh cpu
+
+        # args:
+        # - cpu|memory
+        #
+        # output:
+        # returns the % request/node_capacity, (also visible in `oc describe node`)
+        WHAT=$1
+
+        # load configuration (TOKEN and HAWKULAR host)
+        . /etc/zabbix/requests.rc
+
+
+        CURLOPT=(-s -k -H "Authorization: Bearer ${TOKEN}" -H 'Hawkular-Tenant: _system' -X GET)
+
+        URL="https://${HAWKULAR}/hawkular/metrics/gauges/data?tags=group_id:/${WHAT}/request,hostname:$(hostname)&bucketDuration=1h&limit=1"
+
+        request=$(curl "${CURLOPT[@]}" "$URL" | python -m json.tool|grep avg|head -1|sed 's/^ *"avg *"://;s/,$//')
+
+        URL="https://${HAWKULAR}/hawkular/metrics/gauges/data?tags=group_id:/${WHAT}/node_capacity,hostname:$(hostname)&bucketDuration=1h&limit=1"
+
+        capacity=$(curl "${CURLOPT[@]}" "$URL" | python -m json.tool|grep avg|head -1|sed 's/^ *"avg *"://;s/,$//')
+
+        bc <<< "scale=2; 100*${request}/${capacity}"

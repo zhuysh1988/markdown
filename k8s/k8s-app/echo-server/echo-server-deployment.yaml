@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: source-ip-app
+  name: source-ip-app
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: source-ip-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: source-ip-app
+    spec:
+      nodeSelector:
+        hosttype: storageclass
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/k8s-app-image/echoserver:1.10
+        imagePullPolicy: IfNotPresent
+        name: source-ip-app
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}

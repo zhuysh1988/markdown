@@ -1,0 +1,75 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: zk1
+    ceshi: ceshi
+    name: label-component-zk-cluster-tjsw-1
+  name: zk-cluster-tjsw-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zk1
+      ceshi: ceshi
+      name: label-component-zk-cluster-tjsw-1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: zk1
+        ceshi: ceshi
+        name: label-component-zk-cluster-tjsw-1
+    spec:
+      containers:
+      - env:
+        - name: ZOO_MY_ID
+          value: "1"
+        - name: ZOO_SERVERS
+          value: server.0=zk-cluster-0:2888:3888 server.1=0.0.0.0:2888:3888 server.2=zk-cluster-2:2888:3888
+        - name: ZOO_DATA_DIR
+          value: /data/zk-data
+        - name: ZOO_DATA_LOG_DIR
+          value: /data/zk-logs
+        - name: ZOO_TICK_TIME
+          value: "1000"
+        - name: ZOO_SYNC_LIMIT
+          value: "2"
+        image: abcsys.cn:5000/appstore-zookeeper:3.4.10
+        imagePullPolicy: IfNotPresent
+        name: zk-cluster-com-1
+        ports:
+        - containerPort: 2181
+          protocol: TCP
+        - containerPort: 2888
+          protocol: TCP
+        - containerPort: 3888
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 800m
+            memory: 2Gi
+          requests:
+            cpu: 400m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /data/zk-data
+          name: zk-data
+        - mountPath: /data/zk-logs
+          name: zk-logs
+      dnsPolicy: ClusterFirst
+      hostname: zk-cluster-1
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: zk-data
+      - emptyDir: {}
+        name: zk-logs

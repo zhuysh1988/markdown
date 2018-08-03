@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows最常用的几个网络CMD命令总结</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Windows最常用的几个网络CMD命令总结</h1>
+        <div class="show-content">
+          <p>##Windows最常用的几个网络CMD命令总结<br></p><p>一、ping</p><p>主要是测试本机TCP/IP协议配置正确性与当前网络现状.</p><p>ping命令的基本使用格式是：</p><p>ping&nbsp; IP地址/主机名/域名 [-t] [-a] [-n count] [-l size]</p><p>-t：连续对IP地址/主机名/域名执行Ping命令，直到被用户以Ctrl+C中断.</p><p>-a：以IP地址格式显示目标主机网络地址，默认选项.</p><p>-n count：指定要Ping多少次，具体次数由count来指定，默认值为4.</p><p>-l size：指定Ping命令中发送的数据长度，默认值是32字节.</p><p>二、netstat</p><p>主要是帮助了解整体网络情况以及当前连接情况.</p><p>基本使用命令格式：</p><p>netstat [-n] [-a] [-e] [-r][-s]</p><p>-n：显示所有已建立的有效连接.</p><p>-s：本选项能够按照各个协议分别显示其统计数据。如果应用程序（如Web浏览器）运行速度比较慢，或者不能显示Web页之类的数据，那么我们就可以用本选项来查看一下所显示的信息.我们需要仔细查看统计数据的各行，找到出错的关键字，进而确定问题所在.</p><p>-e：本选项用于显示关于以太网的统计数据。它列出的项目包括传送的数据报的总字节数、错误数、删除数、数据报的数量和广播的数量。这些统计数据既有发送的数据报数量，也有接收的数据报数量.（这个选项可以用来统计一些基本的网络流量）</p><p>-r：本选项可以显示关于路由表的信息，除了显示有效路由外，还显示当前有效的连接.</p><p>-a：本选项显示一个所有的有效连接信息列表，包括已建立的连接（ESTABLISHED），也包括监听连接请求（LISTENING）的那些连接.</p><p>三、ipconfig</p><p>主要是了解当前TCP/IP协议所设置的值，如IP地址、子网掩码、缺省网关、Mac地址等.</p><p>基本使用方法：</p><p>ipconfig [/all/release/renew]</p><p>ipconfig：当不带任何参数选项，那么它为每个已经配置了的接口显示IP地址、子网掩码和缺省网关值.</p><p>/all：当使用all选项时，能为DNS和WINS服务器显示它已配置且所要使用的附加信息（如IP地址等），并且显示内置于本地网卡中的物理地址（MAC）.如果IP地址是从DHCP服务器租用的，它会显示DHCP服务器的IP地址和租用地址预计失效的日期.</p><p>/release &amp; /renew ：这是两个附加选项，只能在向DHCP服务器租用其IP地址的计算机上起作用.如果我输入ipconfig/release，那么所有接口的租用IP地址便重新交付给DHCP服务器（归还IP地址）.如果输入ipconfig /renew，那么本地计算机便设法与DHCP服务器取得联系，并租用一个IP地址.请注意，大多数情况下网卡将被重新赋予和以前所赋予的相同的IP地址.</p><p>四、route</p><p>主要用于配置路由与查看当前路由情况.</p><p>基本使用方法：</p><p>route [print] [add] [change] [delete]</p><p>print：主要是打印当前路由情况.</p><p>add：手动添加路由或配路由，例子如下：</p><p>route ADD 157.0.0.0 MASK 255.0.0.0&nbsp; 157.55.80.1 METRIC 3 IF 2</p><p>destination^ （目标地址）&nbsp; ^mask&nbsp; &nbsp; &nbsp; ^gateway&nbsp;  metric^&nbsp; &nbsp; ^Interface^ (接口)</p><p>change：只用于修改网关和/或跃点数.例子如下：</p><p>route CHANGE 157.0.0.0 MASK 255.0.0.0 157.55.80.5 METRIC 2 IF 2</p><p>delete：删除路由.例子如下：</p><p>route DELETE 157.0.0.0</p><p>五、tracert(trace router的缩写，为路由跟踪命令)</p><p>主要用于显示将数据包从计算机传递到目标位置的一组IP路由器，以及每个跃点所需的时间(即跟踪数据报传送路径),测试网络连通性问题.</p><p>基本用法:</p><p>tracert [-d] [-h maximum_hops] [-j host-list] [-w timeout]</p><p>[-R] [-S srcaddr] [-4] [-6] target_name(目标IP、URL或域名)</p><p>选项:</p><p>-d&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  不将地址解析成主机名.</p><p>-h maximum_hops&nbsp; &nbsp; 搜索目标的最大跃点数.</p><p>-j host-list&nbsp; &nbsp; &nbsp;  与主机列表一起的松散源路由(仅适用于 IPv4).</p><p>-w timeout&nbsp; &nbsp; &nbsp; &nbsp;  等待每个回复的超时时间(以毫秒为单位).</p><p>-R&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  跟踪往返行程路径(仅适用于 IPv6).</p><p>-S srcaddr&nbsp; &nbsp; &nbsp; &nbsp;  要使用的源地址(仅适用于 IPv6).</p><p>-4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  强制使用 IPv4.</p><p>-6&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  强制使用 IPv6.</p><p>六、ARP(Address Resolution Protocol，地址解析协议，是获取物理地址的一个TCP/IP协议.)</p><p>主要用来查看本地计算机或另一台计算机的ARP高速缓存中的当前内容.</p><p>基本使用方法：</p><p>arp [-a/g] [-s] [-d]</p><p>-a：用于查看高速缓存中的所有项目,-a和-g参数的结果是一样的.</p><p>-s：向ARP高速缓存中人工输入一个静态ARP项目.</p><p>-d：删除ARP高速缓存中的内容.</p><p>附CMD比较常用命令集：</p><p>winver---------检查Windows版本</p><p>wmimgmt.msc----打开windows管理体系结构(WMI)</p><p>wupdmgr--------windows更新程序</p><p>wscript--------windows脚本宿主设置</p><p>write----------写字板</p><p>winmsd---------系统信息</p><p>wiaacmgr-------扫描仪和照相机向导</p><p>winchat--------XP自带局域网聊天</p><p>mem.exe--------显示内存使用情况</p><p>Msconfig.exe---系统配置实用程序</p><p>mplayer2-------简易widnows media player</p><p>mspaint--------画图板</p><p>mstsc----------远程桌面连接</p><p>mplayer2-------媒体播放机</p><p>magnify--------放大镜实用程序</p><p>mmc------------打开控制台</p><p>mobsync--------同步命令</p><p>dxdiag---------检查DirectX信息</p><p>drwtsn32------ 系统医生</p><p>devmgmt.msc--- 设备管理器</p><p>dfrg.msc-------磁盘碎片整理程序</p><p>diskmgmt.msc---磁盘管理实用程序</p><p>dcomcnfg-------打开系统组件服务</p><p>ddeshare-------打开DDE共享设置</p><p>dvdplay--------DVD播放器</p><p>net stop messenger-----停止信使服务</p><p>net start messenger----开始信使服务</p><p>notepad--------打开记事本</p><p>nslookup-------网络管理的工具向导</p><p>ntbackup-------系统备份和还原</p><p>narrator-------屏幕“讲述人”</p><p>ntmsmgr.msc----移动存储管理器</p><p>ntmsoprq.msc---移动存储管理员操作请求</p><p>netstat -an----(TC)命令检查接口</p><p>syncapp--------创建一个公文包</p><p>sysedit--------系统配置编辑器</p><p>sigverif-------文件签名验证程序</p><p>sndrec32-------录音机</p><p>shrpubw--------创建共享文件夹</p><p>secpol.msc-----本地安全策略</p><p>syskey---------系统加密，一旦加密就不能解开，保护windows xp系统的双重密码</p><p>services.msc---本地服务设置</p><p>Sndvol32-------音量控制程序</p><p>sfc.exe--------系统文件检查器</p><p>sfc /scannow---windows文件保护</p><p>tsshutdn-------60秒倒计时关机命令</p><p>tourstart------xp简介（安装完成后出现的漫游xp程序）</p><p>taskmgr--------任务管理器</p><p>eventvwr-------事件查看器</p><p>eudcedit-------造字程序</p><p>explorer-------打开资源管理器</p><p>packager-------对象包装程序</p><p>perfmon.msc----计算机性能监测程序</p><p>progman--------程序管理器</p><p>regedit.exe----注册表</p><p>rsop.msc-------组策略结果集</p><p>regedt32-------注册表编辑器</p><p>rononce -p ----15秒关机</p><p>regsvr32 /u *.dll----停止dll文件运行</p><p>regsvr32 /u zipfldr.dll------取消ZIP支持</p><p>cmd.exe--------CMD命令提示符</p><p>chkdsk.exe-----Chkdsk磁盘检查</p><p>certmgr.msc----证书管理实用程序</p><p>calc-----------启动计算器</p><p>charmap--------启动字符映射表</p><p>cliconfg-------SQL SERVER 客户端网络实用程序</p><p>Clipbrd--------剪贴板查看器</p><p>conf-----------启动netmeeting</p><p>compmgmt.msc---计算机管理</p><p>cleanmgr-------垃圾整理</p><p>ciadv.msc------索引服务程序</p><p>osk------------打开屏幕键盘</p><p>odbcad32-------ODBC数据源管理器</p><p>oobe/msoobe /a----检查XP是否激活</p><p>lusrmgr.msc----本机用户和组</p><p>logoff---------注销命令</p><p>iexpress-------木马捆绑工具，系统自带</p><p>Nslookup-------IP地址侦测器</p><p>fsmgmt.msc-----共享文件夹管理器</p><p>utilman--------辅助工具管理</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

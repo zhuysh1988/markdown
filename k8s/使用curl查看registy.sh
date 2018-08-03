@@ -1,0 +1,1 @@
+curl -s --connect-timeout 5 http://dcr.io:5000/v2/_catalog

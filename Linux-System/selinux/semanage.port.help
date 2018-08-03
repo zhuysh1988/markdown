@@ -1,0 +1,27 @@
+usage: semanage port [-h] [-n] [-N] [-S STORE] [ --add -t TYPE -p PROTOCOL -r RANGE ( port_name | port_range ) | --delete -p PROTOCOL ( port_name | port_range ) | --deleteall  | --extract  | --list -C | --modify -t TYPE -p PROTOCOL -r RANGE ( port_name | port_range ) ]
+
+positional arguments:
+  port                  port | port_range
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -C, --locallist       List port local customizations
+  -n, --noheading       Do not print heading when listing port object types
+  -N, --noreload        Do not reload policy after commit
+  -S STORE, --store STORE
+                        Select an alternate SELinux Policy Store to manage
+  -a, --add             Add a record of the port object type
+  -d, --delete          Delete a record of the port object type
+  -m, --modify          Modify a record of the port object type
+  -l, --list            List records of the port object type
+  -E, --extract         Extract customizable commands, for use within a
+                        transaction
+  -D, --deleteall       Remove all port objects local customizations
+  -t TYPE, --type TYPE  SELinux Type for the object
+  -r RANGE, --range RANGE
+                        MLS/MCS Security Range (MLS/MCS Systems only) SELinux
+                        Range for SELinux login mapping defaults to the
+                        SELinux user record range.
+  -p PROTO, --proto PROTO
+                        Protocol for the specified port (tcp|udp) or internet
+                        protocol version for the specified node (ipv4|ipv6).

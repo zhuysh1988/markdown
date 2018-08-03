@@ -1,0 +1,16 @@
+PidFile=/var/run/zabbix/zabbix_agentd.pid
+LogFile=/var/log/zabbix/zabbix_agentd.log
+LogFileSize={{ zabbix_agent_log_size }}
+ListenPort=10050
+
+Server={{ zabbix_host }}
+ServerActive={{ zabbix_host }}
+
+Hostname={{ inventory_hostname }}
+{% if inventory_hostname in groups['masters'] %}
+HostMetadata=OCP Master
+{% else %}
+HostMetadata=OCP Node
+{% endif %}
+
+Include=/etc/zabbix/zabbix_agentd.d/*.conf

@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  rbd-provisioner.sh: |
+    #!/bin/bash
+    set -ex
+    exec /usr/local/bin/rbd-provisioner -id ${POD_NAME}
+kind: ConfigMap
+metadata:
+  name: ceph-bin
+  namespace: {{ .Values.namespace }}

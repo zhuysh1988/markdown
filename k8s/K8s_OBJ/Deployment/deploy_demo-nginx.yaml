@@ -1,0 +1,80 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    image-group-name: demo-nginx-42-v1-c4f5f
+    version-id: version-id-50000036
+  name: demo-nginx-42-v1-c4f5f
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      image-group-name: demo-nginx-42-v1-c4f5f
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        application-real-name: demo-nginx-20180428133944447
+        image-group-name: demo-nginx-42-v1-c4f5f
+        version-id: version-id-50000036
+    spec:
+      containers:
+      - env:
+        - name: NGINX_VERSION
+          value: "1.8"
+        image: abcsys.cn:5000/nginx:latest
+        imagePullPolicy: IfNotPresent
+        name: demo-nginx
+        ports:
+        - containerPort: 80
+          name: nginx-http
+          protocol: TCP
+        - containerPort: 443
+          name: nginx-https
+          protocol: TCP
+        livenessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        readinessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 800m
+            memory: 2Gi
+          requests:
+            cpu: 400m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /var/log/nginx
+          name: v1524894131256
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /abcs/data/local/localFileSystem/demo-nginx-20180428133944447/demo-nginx-42-v1-c4f5f/var_log_nginx
+          type: ""
+        name: v1524894131256
+

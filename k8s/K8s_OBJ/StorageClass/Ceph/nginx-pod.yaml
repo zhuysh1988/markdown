@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx
+spec:
+#  serviceAccount: rbd-provisioner
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: pvc
+      mountPath: "/mnt"
+  restartPolicy: "Never"
+  volumes:
+  - name: pvc
+    persistentVolumeClaim:
+      claimName: claim1
+

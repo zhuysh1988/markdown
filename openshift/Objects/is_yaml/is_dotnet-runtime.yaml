@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/display-name: .NET Core Runtime Images
+    openshift.io/image.dockerRepositoryCheck: 2018-06-29T15:34:13Z
+  creationTimestamp: null
+  generation: 2
+  name: dotnet-runtime
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      description: |-
+        Run .NET Core applications on RHEL 7. For more information about using this image, including OpenShift considerations, see https://github.com/redhat-developer/s2i-dotnetcore/tree/master/2.0/runtime/README.md.
+
+        WARNING: By selecting this tag, your application will automatically update to use the latest version of .NET Core Runtime available on OpenShift, including major versions updates.
+      iconClass: icon-dotnet
+      openshift.io/display-name: .NET Core Runtime (Latest)
+      supports: dotnet-runtime
+      tags: runtime,.net-runtime,dotnet-runtime,dotnetcore-runtime
+    from:
+      kind: ImageStreamTag
+      name: "2.0"
+    generation: 1
+    importPolicy: {}
+    name: latest
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: ""

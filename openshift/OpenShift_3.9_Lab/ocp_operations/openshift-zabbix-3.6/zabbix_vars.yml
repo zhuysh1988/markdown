@@ -1,0 +1,5 @@
+# The DNS name (or IP) of the Zabbix Server
+zabbix_host: bastion.mon.internal
+
+# The Log size for the Zabbix Agent in MB - rotate logs when reaching the size
+zabbix_agent_log_size: 128

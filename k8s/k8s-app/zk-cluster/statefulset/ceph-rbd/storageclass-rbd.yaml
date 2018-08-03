@@ -1,0 +1,17 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ceph
+parameters:
+  adminId: admin
+  adminSecretName: ceph-secret
+  adminSecretNamespace: default
+  fsType: ext4
+  imageFormat: "2"
+  imagefeatures: layering
+  monitors: 172.16.13.223
+  pool: k8s
+  userId: admin
+  userSecretName: ceph-secret
+provisioner: kubernetes.io/rbd
+reclaimPolicy: Delete

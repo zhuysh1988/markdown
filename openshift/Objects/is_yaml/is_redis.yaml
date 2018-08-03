@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/display-name: Redis
+    openshift.io/image.dockerRepositoryCheck: 2018-06-29T15:34:13Z
+  creationTimestamp: null
+  generation: 2
+  name: redis
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      description: |-
+        Provides a Redis database on RHEL 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/3.2/README.md.
+
+        WARNING: By selecting this tag, your application will automatically update to use the latest version of Redis available on OpenShift, including major versions updates.
+      iconClass: icon-redis
+      openshift.io/display-name: Redis (Latest)
+      openshift.io/provider-display-name: Red Hat, Inc.
+      tags: redis
+    from:
+      kind: ImageStreamTag
+      name: "3.2"
+    generation: 1
+    importPolicy: {}
+    name: latest
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: ""

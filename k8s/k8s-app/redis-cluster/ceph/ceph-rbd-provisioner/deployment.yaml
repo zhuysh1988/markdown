@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rbd-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: rbd-provisioner
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: master1.example.com
+      containers:
+      - name: rbd-provisioner
+        image: registry.cn-hangzhou.aliyuncs.com/den/rbd-provisioner:v0.1.1
+        env:
+        - name: PROVISIONER_NAME
+          value: ceph.com/rbd
+      serviceAccount: rbd-provisioner
+

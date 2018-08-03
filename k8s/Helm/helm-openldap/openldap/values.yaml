@@ -1,0 +1,56 @@
+namespace: ldap
+
+images:
+  ldap: osixia/openldap:1.2.1
+  phpldapadmin: osixia/phpldapadmin:0.7.1
+  imagespullpolicy: IfNotPresent
+
+labels:
+  ldap:
+    node_selector_key: ldap
+    node_selector_value: enabled
+  phpldapadmin:
+    node_selector_key: phpldapadmin
+    node_selector_value: enabled    
+
+
+env:
+  ldap:
+    organisation:
+      key: LDAP_ORGANISATION
+      value: "Bocloud Inc."
+    domain:
+      key: LDAP_DOMAIN
+      value: "bocloud.com.cn"
+    password:
+      admin_passwd:
+        key: LDAP_ADMIN_PASSWORD
+        value: Beyond#11
+      config_passwd:
+        key: LDAP_CONFIG_PASSWORD
+        value: Beyond#11
+  phpldapadmin:
+    ldap_host:
+      key: PHPLDAPADMIN_LDAP_HOSTS
+      value: master3.example.com
+
+
+
+port:
+  ldap: 389
+  phpldapadmin: 443
+
+
+# mount type hostpath 
+path:
+  ldap:
+    ldap_data: /data/ldap/ldap_data/
+    ldap_config: /data/ldap/ldap_config/
+    ldap_certs: /data/ldap/ldap_certs/    
+  phpldapadmin:
+    phpldapadmin_certs: /data/phpldapadmin/ssl/
+    ldap_client_certs: /data/phpldapadmin/ldap_client_certs/
+
+
+# daemonset pod dns
+dns_policy: "ClusterFirstWithHostNet"

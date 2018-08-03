@@ -1,0 +1,21 @@
+����qcow2��������
+
+yum -y install guestfish
+yum -y install libguestfs-tools
+
+openssl passwd -1 root
+$1$ueC2L1Vx$hkDYYzV97S3S6PNk.ArCx/
+
+
+systemctl start libvirtd.service
+
+export LIBGUESTFS_BACKEND=direct
+guestfish --rw -a ./rhel-guest-image-7.3-36.x86_64.qcow2
+
+run
+
+list-filesystems
+
+mount /dev/sda1 /
+
+vi /etc/shadow

@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-foo-bar
+spec:
+  rules:
+  - host: www.example.com 
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: svc-app-example
+          servicePort: 8080
+      - path: /example
+        backend:
+          serviceName: svc-app-example
+          servicePort: 8080
+      - path: /docs
+        backend:
+          serviceName: svc-app-example
+          servicePort: 8080
+
+
+# foo.bar.com -> 178.91.123.132 -> / foo    s1:80
+# #                                  / bar    s2:80

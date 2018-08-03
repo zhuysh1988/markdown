@@ -1,0 +1,55 @@
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: phpldapadmin
+spec:
+  template:
+    metadata:
+      labels:
+        app: phpldapadmin
+    spec:
+      nodeSelector:
+        phpldapadmin: enabled
+      hostNetwork: true
+      containers:
+        - name: phpldapadmin
+          image: osixia/phpldapadmin:0.7.1
+          volumeMounts:
+            - name: phpldapadmin-certs
+              mountPath: /container/service/phpldapadmin/assets/apache2/certs
+            - name: ldap-client-certs
+              mountPath: /container/service/ldap-client/assets/certs
+          ports:
+            - containerPort: 443
+          env:
+            - name: PHPLDAPADMIN_LDAP_HOSTS
+              value: "192.168.1.114"
+            - name: PHPLDAPADMIN_SERVER_ADMIN
+              value: "webmaster@example.org"
+            - name: PHPLDAPADMIN_SERVER_PATH
+              value: "/phpldapadmin"
+            - name: PHPLDAPADMIN_HTTPS
+              value: "true"
+            - name: PHPLDAPADMIN_HTTPS_CRT_FILENAME
+              value: "cert.crt"
+            - name: PHPLDAPADMIN_HTTPS_KEY_FILENAME
+              value: "cert.key"
+            - name: PHPLDAPADMIN_HTTPS_CA_CRT_FILENAME
+              value: "ca.crt"
+            - name: PHPLDAPADMIN_LDAP_CLIENT_TLS
+              value: "true"
+            - name: PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT
+              value: "demand"
+            - name: PHPLDAPADMIN_LDAP_CLIENT_TLS_CRT_FILENAME
+              value: "cert.crt"
+            - name: PHPLDAPADMIN_LDAP_CLIENT_TLS_KEY_FILENAME
+              value: "cert.key"
+            - name: PHPLDAPADMIN_LDAP_CLIENT_TLS_CA_CRT_FILENAME
+              value: "ca.crt"
+      volumes:
+        - name: phpldapadmin-certs
+          hostPath:
+            path: "/data/phpldapadmin/ssl/"
+        - name: ldap-client-certs
+          hostPath:
+            path: "/data/phpldapadmin/ldap-client-certs/"

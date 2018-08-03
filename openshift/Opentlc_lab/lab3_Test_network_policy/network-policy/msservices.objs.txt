@@ -1,0 +1,18 @@
+NAME                     READY     STATUS      RESTARTS   AGE
+po/mongodb-1-tgjjr       1/1       Running     0          2h
+po/twitter-api-1-bth2w   1/1       Running     0          2h
+po/twitter-api-1-build   0/1       Completed   0          2h
+po/userregsvc-1-build    0/1       Completed   0          2h
+po/userregsvc-1-t4wph    1/1       Running     0          2h
+NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+svc/mongodb       ClusterIP   172.30.190.238   <none>        27017/TCP                    2h
+svc/twitter-api   ClusterIP   172.30.148.154   <none>        8080/TCP,8443/TCP,8778/TCP   2h
+svc/userregsvc    ClusterIP   172.30.137.167   <none>        8080/TCP                     2h
+NAME                 HOST/PORT                                              PATH      SERVICES      PORT       TERMINATION   WILDCARD
+routes/twitter-api   twitter-api-msservices.apps.99a0.example.opentlc.com             twitter-api   8080-tcp                 None
+routes/userregsvc    userregsvc-msservices.apps.99a0.example.opentlc.com              userregsvc    8080-tcp                 None
+NAME                           POD-SELECTOR      AGE
+netpol/allow-27017             app=mongodb       4m
+netpol/allow-8080-twitter      app=twitter-api   4m
+netpol/allow-8080-userregsvc   app=userregsvc    4m
+netpol/default-deny            <none>            5m

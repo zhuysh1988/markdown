@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/display-name: nexus3 (nexus3)
+  name: nexus3
+spec:
+  dockerImageRepository: registry.example.com:5000/nexus3
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      description: by jhr make 
+      openshift.io/display-name: nexus3 (Latest)
+      openshift.io/provider-display-name: Red Hat, Inc.
+      supports: nexus3
+      tags: builder,nexus3
+    from:
+      kind: DockerImage
+      name: registry.example.com:5000/nexus3:latest
+    importPolicy:
+      insecure: true
+    name: latest
+    referencePolicy:
+      type: Source

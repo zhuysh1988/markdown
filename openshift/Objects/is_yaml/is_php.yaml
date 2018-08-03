@@ -1,0 +1,150 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/display-name: PHP
+    openshift.io/image.dockerRepositoryCheck: 2018-07-31T07:13:03Z
+  creationTimestamp: 2018-07-31T06:25:31Z
+  generation: 4
+  name: php
+  namespace: openshift
+  resourceVersion: "13027"
+  selfLink: /apis/image.openshift.io/v1/namespaces/openshift/imagestreams/php
+  uid: 863d49c6-948a-11e8-b7dc-005056a2342a
+spec:
+  dockerImageRepository: registry.example.com:5000/rhscl/php-70-rhel7
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      description: Build and run PHP 5.5 applications on RHEL 7. For more information
+        about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/5.5/README.md.
+      iconClass: icon-php
+      openshift.io/display-name: PHP 5.5
+      openshift.io/provider-display-name: Red Hat, Inc.
+      sampleRepo: https://github.com/openshift/cakephp-ex.git
+      supports: php:5.5,php
+      tags: hidden,builder,php
+      version: "5.5"
+    from:
+      kind: DockerImage
+      name: registry.example.com:5000/openshift3/php-55-rhel7:latest
+    generation: 4
+    importPolicy:
+      insecure: true
+    name: "5.5"
+    referencePolicy:
+      type: Source
+  - annotations:
+      description: Build and run PHP 5.6 applications on RHEL 7. For more information
+        about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/5.6/README.md.
+      iconClass: icon-php
+      openshift.io/display-name: PHP 5.6
+      openshift.io/provider-display-name: Red Hat, Inc.
+      sampleRepo: https://github.com/openshift/cakephp-ex.git
+      supports: php:5.6,php
+      tags: builder,php
+      version: "5.6"
+    from:
+      kind: DockerImage
+      name: registry.example.com:5000/rhscl/php-56-rhel7:latest
+    generation: 4
+    importPolicy:
+      insecure: true
+    name: "5.6"
+    referencePolicy:
+      type: Source
+  - annotations:
+      description: Build and run PHP 7.0 applications on RHEL 7. For more information
+        about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.0/README.md.
+      iconClass: icon-php
+      openshift.io/display-name: PHP 7.0
+      openshift.io/provider-display-name: Red Hat, Inc.
+      sampleRepo: https://github.com/openshift/cakephp-ex.git
+      supports: php:7.0,php
+      tags: builder,php
+      version: "7.0"
+    from:
+      kind: DockerImage
+      name: registry.example.com:5000/rhscl/php-70-rhel7:latest
+    generation: 4
+    importPolicy:
+      insecure: true
+    name: "7.0"
+    referencePolicy:
+      type: Source
+  - annotations:
+      description: Build and run PHP 7.1 applications on RHEL 7. For more information
+        about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.1/README.md.
+      iconClass: icon-php
+      openshift.io/display-name: PHP 7.1
+      openshift.io/provider-display-name: Red Hat, Inc.
+      sampleRepo: https://github.com/openshift/cakephp-ex.git
+      supports: php:7.1,php
+      tags: builder,php
+      version: "7.1"
+    from:
+      kind: DockerImage
+      name: registry.example.com:5000/rhscl/php-71-rhel7:latest
+    generation: 4
+    importPolicy:
+      insecure: true
+    name: "7.1"
+    referencePolicy:
+      type: Source
+  - annotations:
+      description: |-
+        Build and run PHP applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob
+/master/7.1/README.md.
+        WARNING: By selecting this tag, your application will automatically update to use the latest version of PHP available on OpenShift, including major versions updates.
+      iconClass: icon-php
+      openshift.io/display-name: PHP (Latest)
+      openshift.io/provider-display-name: Red Hat, Inc.
+      sampleRepo: https://github.com/openshift/cakephp-ex.git
+      supports: php
+      tags: builder,php
+    from:
+      kind: DockerImage
+      name: registry.example.com:5000/rhscl/php-70-rhel7:latest
+    generation: 4
+    importPolicy: {}
+    name: latest
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: docker-registry.default.svc:5000/openshift/php
+  tags:
+  - items:
+    - created: 2018-07-31T07:13:03Z
+      dockerImageReference: registry.example.com:5000/openshift3/php-55-rhel7@sha256:c295a677d1454fdbc45e86e8c59cb319d1719d94cebda20fc5c3204ad2adf04e
+      generation: 4
+      image: sha256:c295a677d1454fdbc45e86e8c59cb319d1719d94cebda20fc5c3204ad2adf04e
+    tag: "5.5"
+  - items:
+    - created: 2018-07-31T07:13:03Z
+      dockerImageReference: registry.example.com:5000/rhscl/php-56-rhel7@sha256:e246c52260dcc3027857011fd7bcb18273a8b42ca78cdb286b73948753512607
+      generation: 4
+      image: sha256:e246c52260dcc3027857011fd7bcb18273a8b42ca78cdb286b73948753512607
+    tag: "5.6"
+  - items:
+    - created: 2018-07-31T07:13:03Z
+      dockerImageReference: registry.example.com:5000/rhscl/php-70-rhel7@sha256:472626cf85fdc00096191c93cf8ef52642ed82c7403313a952ca6a5f13f66b0b
+      generation: 4
+      image: sha256:472626cf85fdc00096191c93cf8ef52642ed82c7403313a952ca6a5f13f66b0b
+    tag: "7.0"
+  - conditions:
+    - generation: 4
+      lastTransitionTime: 2018-07-31T07:13:03Z
+      message: dockerimage.image.openshift.io "registry.example.com:5000/rhscl/php-71-rhel7:latest"
+        not found
+      reason: NotFound
+      status: "False"
+      type: ImportSuccess
+    items: null
+    tag: "7.1"
+  - items:
+    - created: 2018-07-31T07:13:03Z
+      dockerImageReference: registry.example.com:5000/rhscl/php-70-rhel7@sha256:472626cf85fdc00096191c93cf8ef52642ed82c7403313a952ca6a5f13f66b0b
+      generation: 4
+      image: sha256:472626cf85fdc00096191c93cf8ef52642ed82c7403313a952ca6a5f13f66b0b
+    tag: latest

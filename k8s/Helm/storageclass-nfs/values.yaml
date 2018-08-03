@@ -1,0 +1,39 @@
+namespace: provisioner
+
+lables:
+  company:
+    key: company
+    value: BoCloud
+  department: 
+    key: department
+    value: services
+  group: 
+    key: group
+    value: poc-and-testing
+  environment: 
+    key: environment 
+    value: dev-and-testing
+
+# full name in rbac app_name , app label
+rbac: nfs-provisioner
+
+replicaCount: 1
+
+image: 
+  repository: registry.cn-hangzhou.aliyuncs.com/jhr-k8s/nfs-client-provisioner
+  tag: latest
+  imagepullpolicy: "IfNotPresent"
+
+
+provisioner: 
+  name: bocloud.com/nfs
+  nfs: false
+  nfsserver:
+  nfspath: 
+  localpath: /srv
+
+
+storageclass: 
+  name: nfs-bocloud
+  isdefault: true
+  systemservices: true

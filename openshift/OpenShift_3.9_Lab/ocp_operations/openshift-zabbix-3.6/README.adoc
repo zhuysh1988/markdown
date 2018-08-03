@@ -1,0 +1,24 @@
+# Zabbix Monitoring for OpenShift
+
+This repository contains definitions and tools to monitor Red Hat OpenShift Container Platform with Zabbix.
+
+. Make sure your Zabbix Server is running.
+. Import the Host Templates (zabbix_ocp_templates.xml) into your Zabbix Server.
+. Make sure the `zabbix_host` variable in your variables file (zabbix_vars.yml) points to your Zabbix Server (e.g. bastion.$GUID.internal).
+. Make sure the Zabbix Server is set up for Auto-Registration of Nodes (see the instructions on how to install the server).
+. From your OCP Bastion host run the playbook to install the Zabbix Agents:
++
+[source,bash]
+----
+ansible-playbook install-zabbix-agents.yml
+----
++
+[NOTE]
+If your Ansible hosts file is not in `/etc/ansible/hosts` specify the location using the `-i` parameter to the `ansible-playbook` command.
+
+. Also from your OCP Bastion host run the playbook to configure the Zabbix Agents - this also writes a few scripts to gather information to the nodes:
++
+[source,bash]
+----
+ansible-playbook configure-zabbix-agents.yml
+----

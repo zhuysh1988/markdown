@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: foo-bar-ingress
+spec:
+  rules:
+  - host: 
+    http:
+      paths:
+      - path: /foo
+        backend:
+          serviceName: svc-nginx-foo
+          servicePort: 80
+      - path: /bar
+        backend:
+          serviceName: svc-nginx-bar
+          servicePort: 80
+
+
+# foo.bar.com -> 178.91.123.132 -> / foo    s1:80
+#                                  / bar    s2:80

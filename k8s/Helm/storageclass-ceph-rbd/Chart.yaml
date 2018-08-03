@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for Kubernetes of ceph rbd storageclass
+name: storageclass-ceph-rbd
+version: 0.1.0

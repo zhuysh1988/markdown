@@ -1,0 +1,596 @@
+Templates (oc new-app --template=<template>)
+-----
+amq62-basic
+  Project: openshift
+  Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template doesn't feature SSL support.
+sso71-postgresql-persistent
+  Project: openshift
+  An example SSO 7 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/applica
+tion-templates.sso71-postgresql
+  Project: openshift
+  An example SSO 7 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/applica
+tion-templates.sso71-mysql-persistent
+  Project: openshift
+  An example SSO 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-
+templates.sso71-mysql
+  Project: openshift
+  An example SSO 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-
+templates.sso71-https
+  Project: openshift
+  An example SSO 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+s2i-spring-boot-cxf-jaxws
+  Project: openshift
+  Spring-Boot and CXF JAXWS QuickStart. This example demonstrates how you can use Apache CXF JAXWS with Spring Boot on Openshift. The quickstart uses Spr
+ing Boot to configure a little application that includes a CXF JAXWS endpoint.s2i-spring-boot-cxf-jaxrs
+  Project: openshift
+  Spring-Boot and CXF JAXRS QuickStart. This example demonstrates how you can use Apache CXF JAXRS with Spring Boot on Openshift. The quickstart uses Spr
+ing Boot to configure a little application that includes a CXF JAXRS endpoint with Swagger enabled.s2i-spring-boot-camel-xml
+  Project: openshift
+  Spring-Boot and Camel Xml QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on Openshift. The quickstart uses Spring 
+Boot to configure a little application that includes a Camel route (in Spring xml) that triggeres a message every 5th second, and routes the message to a log.s2i-spring-boot-camel-teiid
+  Project: openshift
+  Spring-Boot, Camel and JBoss Data Virtualization QuickStart. This example demonstrates how to connect Apache Camel to a remote JBoss Data Virtualizatio
+n (or Teiid) Server using the JDBC protocol. This quickstart assumes that the JDV server is already running and configured on OpenShift, more information about to setup a JDV server can be found at https://github.com/fabric8-quickstarts/spring-boot-camel-teiid/blob/fis-2.0.x.redhat/README.redhat.mds2i-spring-boot-camel-rest-sql
+  Project: openshift
+  Spring Boot, Camel REST DSL and MySQL QuickStart. This quickstart demonstrates how to connect a Spring Boot application to a MySQL database and expose 
+a REST API with Camel on OpenShift. In this example we will use two containers, one container to run as a MySQL server, and another as a client to the database, where the Camel routes are running. This quickstart requires the MySQL server to be deployed and started first, one simple way to run a MySQL service is following the documentation of the OpenShift MySQL container image related to the mysql-ephemeral template.s2i-spring-boot-camel-infinispan
+  Project: openshift
+  Spring Boot, Camel and JBoss Data Grid QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to a JBoss Data Grid (or Infin
+ispan) server using the Hot Rod protocol. It requires that the data grid server (or cluster) has been deployed first, one simple way to run a JDG service is following the documentation of the JDG xPaaS image for OpenShift related to the datagrid65-basic template.s2i-spring-boot-camel-drools
+  Project: openshift
+  Spring-Boot, Camel and JBoss BRMS QuickStart. This example demonstrates how you can use Apache Camel and JBoss BRMS with Spring Boot on OpenShift. DRL 
+files contain simple rules which are used to create knowledge session via Spring configuration file. Camel routes, defined via Spring as well, are then used to e.g. pass (insert) the Body of the message as a POJO to Drools engine for execution. A Kie Server should be deployed and configured before running the application, more information about how to configure it can be found at https://github.com/fabric8-quickstarts/spring-boot-camel-drools/blob/fis-2.0.x.redhat/README.redhat.mds2i-spring-boot-camel-config
+  Project: openshift
+  Spring Boot and Camel using ConfigMaps and Secrets. This quickstart demonstrates how to configure a Spring-Boot application using OpenShift ConfigMaps 
+and Secrets. This example requires that a ConfigMap named camel-config and a Secret named camel-config are present in the namespace before the application is deployed, instruction about how to manually create them can be found here: https://github.com/fabric8-quickstarts/spring-boot-camel-config/blob/fis-2.0.x.redhat/README.redhat.md s2i-spring-boot-camel-amq
+  Project: openshift
+  Spring Boot, Camel and ActiveMQ QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to an ActiveMQ broker and use JMS mes
+saging between two Camel routes using OpenShift. In this example we will use two containers, one container to run as a ActiveMQ broker, and another as a client to the broker, where the Camel routes are running. This quickstart requires the ActiveMQ broker has been deployed and running first, one simple way to run a A-MQ service is following the documentation of the A-MQ xPaaS image for OpenShift related to the amq63-basic templates2i-spring-boot-camel
+  Project: openshift
+  Spring-Boot and Camel QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on Openshift. The quickstart uses Spring Boot
+ to configure a little application that includes a Camel route that triggeres a message every 5th second, and routes the message to a log.s2i-karaf2-cxf-rest
+  Project: openshift
+  REST example using CXF in Karaf container. This quickstart demonstrates how to create a RESTful (JAX-RS) web service using CXF and expose it through th
+e OSGi HTTP Services2i-karaf2-camel-rest-sql
+  Project: openshift
+  Camel example using Rest DSL with SQL Database in Karaf container.  This example demonstrates how to use SQL via JDBC along with Camel's REST DSL to ex
+pose a RESTful API. The OpenShift MySQL container image should already be installed and running on your OpenShift installation, one simple way to run a MySQL service is following the documentation of the Openshift MySQL container image related to the mysql-ephemeral template..s2i-karaf2-camel-log
+  Project: openshift
+  A simple Camel route in Karaf container. This quickstart shows a simple Apache Camel application that logs a message to the server log every 5th second
+.s2i-karaf2-camel-amq
+  Project: openshift
+  Camel route using ActiveMQ in Karaf container. This quickstart shows how to use Camel in a Karaf Container using Blueprint to connect to the A-MQ xPaaS
+ message broker on OpenShift that should already be installed, one simple way to run a A-MQ service is following the documentation of the A-MQ xPaaS image for OpenShift related to the amq63-basic template.registry-console
+  Project: openshift
+  Template for deploying registry web console. Requires cluster-admin.
+redis-persistent
+  Project: openshift
+  Redis in-memory data structure store, with persistent storage. For more information about using this template, including OpenShift considerations, see 
+https://github.com/sclorg/redis-container/blob/master/3.2.
+NOTE: You must have persistent volumes available in your cluster to use this template.
+redis-ephemeral
+  Project: openshift
+  Redis in-memory data structure store, without persistent storage. For more information about using this template, including OpenShift considerations, s
+ee https://github.com/sclorg/redis-container/blob/master/3.2.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
+rails-postgresql-example
+  Project: openshift
+  An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https:
+//github.com/openshift/rails-ex/blob/master/README.md.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
+rails-pgsql-persistent
+  Project: openshift
+  An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https:
+//github.com/openshift/rails-ex/blob/master/README.md.processserver64-postgresql-s2i
+  Project: openshift
+  An example BPM Suite application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/app
+lication-templates.processserver64-postgresql-persistent-s2i
+  Project: openshift
+  An example BPM Suite application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/app
+lication-templates.processserver64-mysql-s2i
+  Project: openshift
+  An example BPM Suite application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/applicat
+ion-templates.processserver64-mysql-persistent-s2i
+  Project: openshift
+  An example BPM Suite application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/applicat
+ion-templates.processserver64-basic-s2i
+  Project: openshift
+  An example BPM Suite application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+processserver64-amq-postgresql-s2i
+  Project: openshift
+  An example BPM Suite application with A-MQ and a PostgreSQL database. For more information about using this template, see https://github.com/jboss-open
+shift/application-templates.processserver64-amq-postgresql-persistent-s2i
+  Project: openshift
+  An example BPM Suite application with A-MQ and a PostgreSQL database. For more information about using this template, see https://github.com/jboss-open
+shift/application-templates.processserver64-amq-mysql-s2i
+  Project: openshift
+  An example BPM Suite application with A-MQ and a MySQL database. For more information about using this template, see https://github.com/jboss-openshift
+/application-templates.processserver64-amq-mysql-persistent-s2i
+  Project: openshift
+  An example BPM Suite application with A-MQ and a MySQL database. For more information about using this template, see https://github.com/jboss-openshift
+/application-templates.postgresql-persistent
+  Project: openshift
+  PostgreSQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://g
+ithub.com/sclorg/postgresql-container/.
+NOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.
+postgresql-ephemeral
+  Project: openshift
+  PostgreSQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https:
+//github.com/sclorg/postgresql-container/.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
+openjdk18-web-basic-s2i
+  Project: openshift
+  An example Java application using OpenJDK 8. For more information about using this template, see https://github.com/jboss-openshift/application-templat
+es.nodejs-mongodb-example
+  Project: openshift
+  An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https:/
+/github.com/openshift/nodejs-ex/blob/master/README.md.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
+3scale-gateway
+  Project: openshift
+  3scale API Gateway
+amp-apicast-wildcard-router
+  Project: openshift
+amp-pvc
+  Project: openshift
+nodejs-mongo-persistent
+  Project: openshift
+  An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https:/
+/github.com/openshift/nodejs-ex/blob/master/README.md.amq62-persistent
+  Project: openshift
+  Application template for JBoss A-MQ brokers. These can be deployed as standalone and use persistent storage for saving messages, including message migr
+ation when the number of pods are reduced. This template doesn't feature SSL support.amq62-persistent-ssl
+  Project: openshift
+  An example JBoss A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+amq62-ssl
+  Project: openshift
+  Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template supports SSL and requires usage of OpenShi
+ft secrets.amq63-basic
+  Project: openshift
+  Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template doesn't feature SSL support.
+amq63-persistent
+  Project: openshift
+  An example JBoss A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+amq63-persistent-ssl
+  Project: openshift
+  An example JBoss A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+amq63-ssl
+  Project: openshift
+  An example JBoss A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+cakephp-mysql-example
+  Project: openshift
+  An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://g
+ithub.com/openshift/cakephp-ex/blob/master/README.md.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
+cakephp-mysql-persistent
+  Project: openshift
+  An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://g
+ithub.com/openshift/cakephp-ex/blob/master/README.md.dancer-mysql-example
+  Project: openshift
+  An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://gi
+thub.com/openshift/dancer-ex/blob/master/README.md.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
+dancer-mysql-persistent
+  Project: openshift
+  An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://gi
+thub.com/openshift/dancer-ex/blob/master/README.md.datagrid65-basic
+  Project: openshift
+  Application template for JDG 6.5 applications.
+datagrid65-https
+  Project: openshift
+  Application template for JDG 6.5 applications.
+datagrid65-mysql
+  Project: openshift
+  Application template for JDG 6.5 and MySQL applications.
+datagrid65-mysql-persistent
+  Project: openshift
+  An example JBoss Data Grid application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/ap
+plication-templates.datagrid65-postgresql
+  Project: openshift
+  Application template for JDG 6.5 and PostgreSQL applications built using.
+datagrid65-postgresql-persistent
+  Project: openshift
+  An example JBoss Data Grid application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshi
+ft/application-templates.datagrid71-basic
+  Project: openshift
+  An example JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+datagrid71-https
+  Project: openshift
+  An example JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+datagrid71-mysql
+  Project: openshift
+  An example JBoss Data Grid application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/ap
+plication-templates.datagrid71-mysql-persistent
+  Project: openshift
+  An example JBoss Data Grid application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/ap
+plication-templates.datagrid71-partition
+  Project: openshift
+  An example JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+datagrid71-postgresql
+  Project: openshift
+  An example JBoss Data Grid application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshi
+ft/application-templates.datagrid71-postgresql-persistent
+  Project: openshift
+  An example JBoss Data Grid application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshi
+ft/application-templates.datavirt63-basic-s2i
+  Project: openshift
+  Application template for JBoss Data Virtualization 6.3 services built using S2I.
+datavirt63-extensions-support-s2i
+  Project: openshift
+  An example JBoss Data Virtualization application. For more information about using this template, see https://github.com/jboss-openshift/application-te
+mplates.datavirt63-secure-s2i
+  Project: openshift
+  An example JBoss Data Virtualization application. For more information about using this template, see https://github.com/jboss-openshift/application-te
+mplates.decisionserver64-amq-s2i
+  Project: openshift
+  An example BRMS decision server A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-te
+mplates.decisionserver64-basic-s2i
+  Project: openshift
+  Application template for Red Hat JBoss BRMS 6.4 decision server applications built using S2I.
+decisionserver64-https-s2i
+  Project: openshift
+  An example BRMS decision server application. For more information about using this template, see https://github.com/jboss-openshift/application-templat
+es.django-psql-example
+  Project: openshift
+  An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https
+://github.com/openshift/django-ex/blob/master/README.md.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
+django-psql-persistent
+  Project: openshift
+  An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https
+://github.com/openshift/django-ex/blob/master/README.md.dotnet-example
+  Project: openshift
+  An example .NET Core application.
+dotnet-pgsql-persistent
+  Project: openshift
+  An example .NET Core application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see ht
+tps://github.com/redhat-developer/s2i-dotnetcore.dotnet-runtime-example
+  Project: openshift
+  An example .NET Core Runtime example application.
+eap64-amq-persistent-s2i
+  Project: openshift
+  An example EAP 6 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap64-amq-s2i
+  Project: openshift
+  An example EAP 6 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap64-basic-s2i
+  Project: openshift
+  An example EAP 6 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap64-https-s2i
+  Project: openshift
+  An example EAP 6 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap64-mongodb-persistent-s2i
+  Project: openshift
+  An example EAP 6 application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift/applicatio
+n-templates.eap64-mongodb-s2i
+  Project: openshift
+  An example EAP 6 application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift/applicatio
+n-templates.eap64-mysql-persistent-s2i
+  Project: openshift
+  An example EAP 6 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-
+templates.eap64-mysql-s2i
+  Project: openshift
+  An example EAP 6 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-
+templates.eap64-postgresql-persistent-s2i
+  Project: openshift
+  An example EAP 6 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/applica
+tion-templates.eap64-postgresql-s2i
+  Project: openshift
+  An example EAP 6 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/applica
+tion-templates.eap64-sso-s2i
+  Project: openshift
+  An example EAP 6 Single Sign-On application. For more information about using this template, see https://github.com/jboss-openshift/application-templat
+es.mysql-persistent
+  Project: openshift
+  MySQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github
+.com/sclorg/mysql-container/blob/master/5.7/root/usr/share/container-scripts/mysql/README.md.
+NOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.
+eap64-tx-recovery-s2i
+  Project: openshift
+  An example EAP 6 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap70-amq-persistent-s2i
+  Project: openshift
+  An example EAP 7 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap70-amq-s2i
+  Project: openshift
+  An example EAP 7 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap70-basic-s2i
+  Project: openshift
+  An example EAP 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap70-https-s2i
+  Project: openshift
+  An example EAP 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap70-mongodb-persistent-s2i
+  Project: openshift
+  An example EAP 7 application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift/applicatio
+n-templates.eap70-mongodb-s2i
+  Project: openshift
+  An example EAP 7 application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift/applicatio
+n-templates.eap70-mysql-persistent-s2i
+  Project: openshift
+  An example EAP 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-
+templates.eap70-mysql-s2i
+  Project: openshift
+  An example EAP 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-
+templates.eap70-postgresql-persistent-s2i
+  Project: openshift
+  An example EAP 7 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/applica
+tion-templates.eap70-postgresql-s2i
+  Project: openshift
+  An example EAP 7 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/applica
+tion-templates.eap70-sso-s2i
+  Project: openshift
+  An example EAP 7 Single Sign-On application. For more information about using this template, see https://github.com/jboss-openshift/application-templat
+es.eap70-third-party-db-s2i
+  Project: openshift
+  An example EAP 7 DB application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap70-tx-recovery-s2i
+  Project: openshift
+  An example EAP 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap71-amq-persistent-s2i
+  Project: openshift
+  An example EAP 7 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap71-amq-s2i
+  Project: openshift
+  An example EAP 7 A-MQ application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap71-basic-s2i
+  Project: openshift
+  An example EAP 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap71-https-s2i
+  Project: openshift
+  An example EAP 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap71-mongodb-persistent-s2i
+  Project: openshift
+  An example EAP 7 application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift/applicatio
+n-templates.eap71-mongodb-s2i
+  Project: openshift
+  An example EAP 7 application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift/applicatio
+n-templates.eap71-mysql-persistent-s2i
+  Project: openshift
+  An example EAP 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-
+templates.eap71-mysql-s2i
+  Project: openshift
+  An example EAP 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-
+templates.eap71-postgresql-persistent-s2i
+  Project: openshift
+  An example EAP 7 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/applica
+tion-templates.eap71-postgresql-s2i
+  Project: openshift
+  An example EAP 7 application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/applica
+tion-templates.eap71-sso-s2i
+  Project: openshift
+  An example EAP 7 Single Sign-On application. For more information about using this template, see https://github.com/jboss-openshift/application-templat
+es.eap71-third-party-db-s2i
+  Project: openshift
+  An example EAP 7 DB application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+eap71-tx-recovery-s2i
+  Project: openshift
+  An example EAP 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+httpd-example
+  Project: openshift
+  An example Apache HTTP Server (httpd) application that serves static content. For more information about using this template, including OpenShift consi
+derations, see https://github.com/openshift/httpd-ex/blob/master/README.md.jenkins-ephemeral
+  Project: openshift
+  Jenkins service, without persistent storage.
+
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
+jenkins-persistent
+  Project: openshift
+  Jenkins service, with persistent storage.
+
+NOTE: You must have persistent volumes available in your cluster to use this template.
+jws31-tomcat7-basic-s2i
+  Project: openshift
+  Application template for JWS applications built using S2I.
+jws31-tomcat7-https-s2i
+  Project: openshift
+  An example JBoss Web Server application configured for use with https. For more information about using this template, see https://github.com/jboss-ope
+nshift/application-templates.jws31-tomcat7-mongodb-persistent-s2i
+  Project: openshift
+  An example JBoss Web Server application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift
+/application-templates.jws31-tomcat7-mongodb-s2i
+  Project: openshift
+  Application template for JWS MongoDB applications built using S2I.
+jws31-tomcat7-mysql-persistent-s2i
+  Project: openshift
+  An example JBoss Web Server application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/a
+pplication-templates.jws31-tomcat7-mysql-s2i
+  Project: openshift
+  Application template for JWS MySQL applications built using S2I.
+jws31-tomcat7-postgresql-persistent-s2i
+  Project: openshift
+  An example JBoss Web Server application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-opensh
+ift/application-templates.jws31-tomcat7-postgresql-s2i
+  Project: openshift
+  Application template for JWS PostgreSQL applications built using S2I.
+jws31-tomcat8-basic-s2i
+  Project: openshift
+  An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+jws31-tomcat8-https-s2i
+  Project: openshift
+  An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+jws31-tomcat8-mongodb-persistent-s2i
+  Project: openshift
+  An example JBoss Web Server application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift
+/application-templates.jws31-tomcat8-mongodb-s2i
+  Project: openshift
+  Application template for JWS MongoDB applications built using S2I.
+jws31-tomcat8-mysql-persistent-s2i
+  Project: openshift
+  An example JBoss Web Server application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/a
+pplication-templates.jws31-tomcat8-mysql-s2i
+  Project: openshift
+  Application template for JWS MySQL applications built using S2I.
+jws31-tomcat8-postgresql-persistent-s2i
+  Project: openshift
+  Application template for JWS PostgreSQL applications with persistent storage built using S2I.
+jws31-tomcat8-postgresql-s2i
+  Project: openshift
+  Application template for JWS PostgreSQL applications built using S2I.
+mariadb-ephemeral
+  Project: openshift
+  MariaDB database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://g
+ithub.com/sclorg/mariadb-container/blob/master/10.2/root/usr/share/container-scripts/mysql/README.md.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
+mariadb-persistent
+  Project: openshift
+  MariaDB database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://gith
+ub.com/sclorg/mariadb-container/blob/master/10.2/root/usr/share/container-scripts/mysql/README.md.
+NOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.
+mongodb-ephemeral
+  Project: openshift
+  MongoDB database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://g
+ithub.com/sclorg/mongodb-container/blob/master/3.2/README.md.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
+mongodb-persistent
+  Project: openshift
+  MongoDB database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://gith
+ub.com/sclorg/mongodb-container/blob/master/3.2/README.md.
+NOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.
+mysql-ephemeral
+  Project: openshift
+  MySQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://git
+hub.com/sclorg/mysql-container/blob/master/5.7/root/usr/share/container-scripts/mysql/README.md.
+WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing
+eap64-third-party-db-s2i
+  Project: openshift
+  An example EAP 6 DB application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.
+nginx-example
+  Project: openshift
+  An example Nginx HTTP server and a reverse proxy (nginx) application that serves static content. For more information about using this template, includ
+ing OpenShift considerations, see https://github.com/sclorg/nginx-ex/blob/master/README.md.system
+  Project: openshift
+
+Image streams (oc new-app --image-stream=<image-stream> [--code=<source>])
+-----
+gogs
+  Project: openshift
+  Tags:    latest
+jboss-eap70-openshift
+  Project: openshift
+  Tags:    1.7, latest
+tasks
+  Project: tasks
+  Tags:    latest
+nexus3
+  Project: openshift
+  Tags:    latest
+postgresql
+  Project: openshift
+  Tags:    9.4, 9.5, 9.6, latest
+ruby
+  Project: openshift
+  Tags:    2.2, 2.3, 2.4
+redis
+  Project: openshift
+  Tags:    3.2
+redhat-sso71-openshift
+  Project: openshift
+  Tags:    
+  Red Hat SSO 7.1
+redhat-sso70-openshift
+  Project: openshift
+  Tags:    
+  Red Hat SSO 7.0
+redhat-openjdk18-openshift
+  Project: openshift
+  Tags:    1.1, 1.2
+python
+  Project: openshift
+  Tags:    2.7, 3.4, 3.5, 3.6
+php
+  Project: openshift
+  Tags:    5.6, 7.0, 7.1
+perl
+  Project: openshift
+  Tags:    5.20, 5.24
+nodejs
+  Project: openshift
+  Tags:    4, 6, 8
+nginx
+  Project: openshift
+  Tags:    1.10, 1.12, 1.8
+mysql
+  Project: openshift
+  Tags:    5.6, 5.7
+mongodb
+  Project: openshift
+  Tags:    2.6, 3.2, 3.4
+mariadb
+  Project: openshift
+  Tags:    10.1, 10.2
+jenkins
+  Project: openshift
+  Tags:    2
+jboss-webserver31-tomcat8-openshift
+  Project: openshift
+  Tags:    
+jboss-webserver31-tomcat7-openshift
+  Project: openshift
+  Tags:    
+jboss-webserver30-tomcat8-openshift
+  Project: openshift
+  Tags:    
+jboss-processserver64-openshift
+  Project: openshift
+  Tags:    
+jboss-processserver63-openshift
+  Project: openshift
+  Tags:    
+jboss-eap71-openshift
+  Project: openshift
+  Tags:    
+jboss-eap64-openshift
+  Project: openshift
+  Tags:    
+jboss-decisionserver64-openshift
+  Project: openshift
+  Tags:    
+jboss-decisionserver63-openshift
+  Project: openshift
+  Tags:    
+jboss-decisionserver62-openshift
+  Project: openshift
+  Tags:    
+jboss-datavirt63-openshift
+  Project: openshift
+  Tags:    
+jboss-datavirt63-driver-openshift
+  Project: openshift
+  Tags:    
+jboss-datagrid71-openshift
+  Project: openshift
+  Tags:    
+jboss-datagrid71-client-openshift
+  Project: openshift
+  Tags:    
+jboss-datagrid65-openshift
+  Project: openshift
+  Tags:    
+jboss-datagrid65-client-openshift
+  Project: openshift
+  Tags:    
+jboss-amq-63
+  Project: openshift
+  Tags:    
+jboss-amq-62
+  Project: openshift
+  Tags:    
+httpd
+  Project: openshift
+  Tags:    2.4
+fis-karaf-openshift
+  Project: openshift
+  Tags:    2.0
+fis-java-openshift
+  Project: openshift
+  Tags:    2.0
+dotnet-runtime
+  Project: openshift
+  Tags:    2.0
+dotnet
+  Project: openshift
+  Tags:    1.0, 1.1, 2.0
+jboss-webserver30-tomcat7-openshift
+  Project: openshift
+  Tags:    

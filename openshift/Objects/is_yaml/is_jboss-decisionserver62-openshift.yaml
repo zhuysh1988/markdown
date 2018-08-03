@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/display-name: Red Hat JBoss BRMS 6.2 decision server
+    openshift.io/image.dockerRepositoryCheck: 2018-06-29T15:34:23Z
+    version: 1.4.7
+  creationTimestamp: null
+  generation: 2
+  name: jboss-decisionserver62-openshift
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: ""

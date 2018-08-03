@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  labels:
+    app: phpldapadmin
+  name: phpldapadmin
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: phpldapadmin
+  template:
+    metadata:
+      labels:
+        app: phpldapadmin
+    spec:
+      containers:
+      - env:
+        - name: {{ .Values.env.phpldapadmin.ldap_host.key }}
+          value: {{ .Values.env.phpldapadmin.ldap_host.value }}
+        - name: PHPLDAPADMIN_SERVER_ADMIN
+          value: webmaster@example.org
+        - name: PHPLDAPADMIN_SERVER_PATH
+          value: /phpldapadmin
+        - name: PHPLDAPADMIN_HTTPS
+          value: "true"
+        - name: PHPLDAPADMIN_HTTPS_CRT_FILENAME
+          value: cert.crt
+        - name: PHPLDAPADMIN_HTTPS_KEY_FILENAME
+          value: cert.key
+        - name: PHPLDAPADMIN_HTTPS_CA_CRT_FILENAME
+          value: ca.crt
+        - name: PHPLDAPADMIN_LDAP_CLIENT_TLS
+          value: "true"
+        - name: PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT
+          value: demand
+        - name: PHPLDAPADMIN_LDAP_CLIENT_TLS_CRT_FILENAME
+          value: cert.crt
+        - name: PHPLDAPADMIN_LDAP_CLIENT_TLS_KEY_FILENAME
+          value: cert.key
+        - name: PHPLDAPADMIN_LDAP_CLIENT_TLS_CA_CRT_FILENAME
+          value: ca.crt
+        image: {{ .Values.images.phpldapadmin }}
+        imagePullPolicy: {{ .Values.images.imagespullpolicy }}
+        name: phpldapadmin
+        ports:
+        - containerPort: {{ .Values.port.phpldapadmin }}
+          hostPort: {{ .Values.port.phpldapadmin }}
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /container/service/phpldapadmin/assets/apache2/certs
+          name: phpldapadmin-certs
+        - mountPath: /container/service/ldap-client/assets/certs
+          name: ldap-client-certs
+      hostNetwork: true
+      dnsPolicy: {{ .Values.dns_policy }}
+      nodeSelector:
+        {{ .Values.labels.phpldapadmin.node_selector_key }}: {{ .Values.labels.phpldapadmin.node_selector_value }}
+      volumes:
+      - hostPath:
+          path: {{ .Values.path.phpldapadmin.phpldapadmin_certs }}
+        name: phpldapadmin-certs
+      - hostPath:
+          path: {{ .Values.path.phpldapadmin.ldap_client_certs }}
+        name: ldap-client-certs
+

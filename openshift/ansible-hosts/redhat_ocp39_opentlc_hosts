@@ -1,0 +1,214 @@
+[OSEv3:vars]
+
+###########################################################################
+### Ansible Vars
+###########################################################################
+timeout=60
+
+# if ssh user not root , become = yes 
+ansible_become=yes
+ansible_ssh_user=ec2-user
+
+# add for jhr
+# ---------------------------------------------------------------------
+
+# 安装前检查
+openshift_disable_check="disk_availability,memory_availability" 
+#openshift_disable_check=disk_availability,docker_image_availability,docker_storage,memory_availability,package_availability
+
+
+deployment_type=openshift-enterprise 
+
+# 使用二进制包安装
+containerized=false 
+
+
+# LDAP  Set 
+openshift_master_identity_providers=[{'name': 'my_ldap_provider', 'challenge': 'true', 'login': 'true', 'kind': 'LDAPPasswordIdentityProvider', 'attributes': {'id': ['dn'], 'email': ['mail'], 'name': ['cn'], 'preferredUsername': ['uid']}, 'bindDN': 'uid=admin,cn=users,cn=accounts,dc=shared,dc=example,dc=opentlc,dc=com', 'bindPassword': 'r3dh4t1!', 'ca': '/etc/origin/master/ipa-ca.crt', 'insecure': 'false', 'url': 'ldaps://ipa.shared.example.opentlc.com:636/cn=users,cn=accounts,dc=shared,dc=example,dc=opentlc,dc=com?uid?sub?(memberOf=cn=ocp-users,cn=groups,cn=accounts,dc=shared,dc=example,dc=opentlc,dc=com)'}]
+# This var 会把文件同步到各master节点
+openshift_master_ldap_ca_file='/root/ipa-ca.crt'
+
+#default project node selector
+osm_default_node_selector='env=app' 
+
+# use cockpit 
+osm_use_cockpit=true 
+osm_cockpit_plugins=['cockpit-kubernetes']
+
+
+# 
+openshift_master_cluster_method=native 
+# 内网DNS 域名
+openshift_master_cluster_hostname=loadbalancer1.99a0.internal 
+# 外网DNS域名
+openshift_master_cluster_public_hostname=loadbalancer.99a0.example.opentlc.com 
+# APP 域名
+openshift_master_default_subdomain=apps.99a0.example.opentlc.com 
+
+
+
+# roter install 
+openshift_hosted_router_selector='env=infra' 
+openshift_hosted_router_replicas=2 
+
+# registry  
+# -------------------------------------------------------------------------------
+openshift_hosted_registry_selector='env=infra' 
+openshift_hosted_registry_replicas=1 
+
+openshift_hosted_registry_storage_kind=nfs 
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_nfs_directory=/srv/nfs
+openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
+openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_volume_size=10Gi
+# -------------------------------------------------------------------------------
+
+
+# metrics
+# -------------------------------------------------------------------------------
+openshift_metrics_install_metrics=True 
+
+openshift_metrics_storage_kind=nfs 
+openshift_metrics_storage_access_modes=['ReadWriteOnce'] 
+openshift_metrics_storage_nfs_directory=/srv/nfs  
+openshift_metrics_storage_nfs_options='*(rw,root_squash)' 
+openshift_metrics_storage_volume_name=metrics 
+openshift_metrics_storage_volume_size=10Gi 
+openshift_metrics_storage_labels={'storage': 'metrics'} 
+
+openshift_metrics_cassandra_nodeselector={"env":"infra"} 
+openshift_metrics_hawkular_nodeselector={"env":"infra"} 
+openshift_metrics_heapster_nodeselector={"env":"infra"} 
+# -----------------------------------------------------------------------------
+
+
+# Enable cluster logging
+# ---------------------------------------------------------------------------
+openshift_logging_install_logging=True 
+
+openshift_logging_storage_kind=nfs  
+openshift_logging_storage_access_modes=['ReadWriteOnce']  
+openshift_logging_storage_nfs_directory=/srv/nfs 
+openshift_logging_storage_nfs_options='*(rw,root_squash)' 
+openshift_logging_storage_volume_name=logging 
+openshift_logging_storage_volume_size=10Gi 
+openshift_logging_storage_labels={'storage': 'logging'} 
+
+# openshift_logging_kibana_hostname=kibana.apps.99a0.example.opentlc.com
+openshift_logging_es_cluster_size=1
+
+openshift_logging_es_nodeselector={"env":"infra"} 
+openshift_logging_kibana_nodeselector={"env":"infra"} 
+openshift_logging_curator_nodeselector={"env":"infra"} 
+# ----------------------------------------------------------------------------------
+
+
+
+# Configure additional projects
+openshift_additional_projects={'my-infra-project-test': {'default_node_selector': 'env=apps'}} 
+
+# service catalog 
+# -----------------------------------------------------------------------------------
+openshift_enable_service_catalog=true 
+
+ansible_service_broker_install=false 
+
+# template service broker 
+template_service_broker_install=true 
+template_service_broker_selector={"env":"infra"} 
+openshift_additional_projects={'openshift-template-service-broker': {'default_node_selector': ''}} 
+openshift_template_service_broker_namespaces=['openshift'] 
+
+
+openshift_hosted_prometheus_deploy=true 
+openshift_prometheus_node_selector={"env":"infra"}
+openshift_prometheus_namespace=openshift-metrics 
+
+# Prometheus
+
+openshift_prometheus_storage_kind=nfs
+openshift_prometheus_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_storage_nfs_directory=/srv/nfs
+openshift_prometheus_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_storage_volume_name=prometheus
+openshift_prometheus_storage_volume_size=10Gi
+openshift_prometheus_storage_labels={'storage': 'prometheus'}
+openshift_prometheus_storage_type='pvc'
+# For prometheus-alertmanager
+openshift_prometheus_alertmanager_storage_kind=nfs
+openshift_prometheus_alertmanager_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_alertmanager_storage_nfs_directory=/srv/nfs
+openshift_prometheus_alertmanager_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_alertmanager_storage_volume_name=prometheus-alertmanager
+openshift_prometheus_alertmanager_storage_volume_size=10Gi
+openshift_prometheus_alertmanager_storage_labels={'storage': 'prometheus-alertmanager'}
+openshift_prometheus_alertmanager_storage_type='pvc'
+# For prometheus-alertbuffer
+openshift_prometheus_alertbuffer_storage_kind=nfs
+openshift_prometheus_alertbuffer_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_alertbuffer_storage_nfs_directory=/srv/nfs
+openshift_prometheus_alertbuffer_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_alertbuffer_storage_volume_name=prometheus-alertbuffer
+openshift_prometheus_alertbuffer_storage_volume_size=10Gi
+openshift_prometheus_alertbuffer_storage_labels={'storage': 'prometheus-alertbuffer'}
+openshift_prometheus_alertbuffer_storage_type='pvc'
+
+# -------------------------------------------------------------------------
+
+
+# Set this line to enable NFS
+openshift_enable_unsupported_configurations=True
+
+
+###########################################################################
+### OpenShift Hosts
+###########################################################################
+[OSEv3:children]
+lb
+masters
+etcd
+nodes
+nfs
+#glusterfs
+
+[lb]
+loadbalancer1.99a0.internal
+
+[masters]
+master1.99a0.internal
+master2.99a0.internal
+master3.99a0.internal
+
+[etcd]
+master1.99a0.internal
+master2.99a0.internal
+master3.99a0.internal
+
+[nodes]
+## These are the masters
+master1.99a0.internal openshift_hostname=master1.99a0.internal  openshift_node_labels="{'env': 'master', 'cluster': '99a0'}"
+master2.99a0.internal openshift_hostname=master2.99a0.internal  openshift_node_labels="{'env': 'master', 'cluster': '99a0'}"
+master3.99a0.internal openshift_hostname=master3.99a0.internal  openshift_node_labels="{'env': 'master', 'cluster': '99a0'}"
+
+## These are infranodes
+infranode1.99a0.internal openshift_hostname=infranode1.99a0.internal  openshift_node_labels="{'env':'infra', 'cluster': '99a0'}"
+infranode2.99a0.internal openshift_hostname=infranode2.99a0.internal  openshift_node_labels="{'env':'infra', 'cluster': '99a0'}"
+
+## These are regular nodes
+node1.99a0.internal openshift_hostname=node1.99a0.internal  openshift_node_labels="{'env':'app', 'cluster': '99a0'}"
+node2.99a0.internal openshift_hostname=node2.99a0.internal  openshift_node_labels="{'env':'app', 'cluster': '99a0'}"
+node3.99a0.internal openshift_hostname=node3.99a0.internal  openshift_node_labels="{'env':'app', 'cluster': '99a0'}"
+
+## These are CNS nodes
+# support1.99a0.internal openshift_hostname=support1.99a0.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '99a0'}"
+# support2.99a0.internal openshift_hostname=support2.99a0.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '99a0'}"
+# support3.99a0.internal openshift_hostname=support3.99a0.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '99a0'}"
+
+[nfs]
+support1.99a0.internal openshift_hostname=support1.99a0.internal
+
+#[glusterfs]
+# support1.99a0.internal glusterfs_devices='[ "/dev/xvdd" ]'
+# support2.99a0.internal glusterfs_devices='[ "/dev/xvdd" ]'
+# support3.99a0.internal glusterfs_devices='[ "/dev/xvdd" ]'

@@ -1,0 +1,11 @@
+NAME                  READY     STATUS      RESTARTS   AGE
+po/emailsvc-1-4bhn9   1/1       Running     0          2h
+po/emailsvc-1-build   0/1       Completed   0          2h
+po/mysql-1-dq7sq      1/1       Running     0          2h
+NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+svc/emailsvc   ClusterIP   172.30.10.202   <none>        8080/TCP   2h
+svc/mysql      ClusterIP   172.30.11.232   <none>        3306/TCP   2h
+NAME                         POD-SELECTOR   AGE
+netpol/allow-3306            app=mysql      13m
+netpol/allow-8080-emailsvc   app=emailsvc   4m
+netpol/default-deny          <none>         4m

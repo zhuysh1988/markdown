@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: demo-rq
+spec:
+  hard:
+    pods: 2
+#    requests.cpu: 0.2
+#   requests.memory: 128Mi
+#    limits.cpu: 2
+#    limits.memory: 2Gi
+    configmaps: 2
+    persistentvolumeclaims: 2
+    replicationcontrollers: 2
+    secrets: 2
+    services: 2

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  serviceAccountName: build-robot
+#  automountServiceAccountToken: false
+# 在 1.6 以上版本中，您可以选择取消为 service account 自动挂载 API 凭证，
+# 只需在 service account 中设置 automountServiceAccountToken: false：

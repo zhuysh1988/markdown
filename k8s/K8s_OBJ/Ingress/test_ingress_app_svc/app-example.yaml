@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: app-example
+  name: app-example
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: app-example
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: app-example
+    spec:
+      containers:
+      - image: tomcat
+        imagePullPolicy: IfNotPresent
+        name: app-example
+        ports:
+        - containerPort: 8080
+          name: app-http
+          protocol: TCP
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+

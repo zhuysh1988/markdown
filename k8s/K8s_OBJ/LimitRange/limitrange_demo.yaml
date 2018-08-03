@@ -1,0 +1,62 @@
+apiVersion: "v1"
+kind: "LimitRange"
+metadata:
+  name: "demo-lr"
+spec:
+  limits:
+  - max:
+      cpu: "2"
+      memory: 2Gi
+    min:
+      cpu: 100m
+      memory: 32Mi
+    maxLimitRequestRatio:
+      cpu: 4
+      memory: 2
+    type: Pod
+  - default:
+      cpu: 200m
+      memory: 128Mi
+    defaultRequest:
+      cpu: 100m
+      memory: 64Mi
+    max:
+      cpu: "1"
+      memory: 1Gi
+    maxLimitRequestRatio:
+      cpu: 6
+      memory: 4
+    min:
+      cpu: 100m
+      memory: 32Mi
+    type: Container
+
+# Container :
+# Container Min 是Pod 中所有Container Requests 值的下限
+# Container Max 是Pod 中所有Container Limits 值的上限
+# Container DefaultRequest 是Pod 中所有未指定Requests 值Container 的默认Request 值
+# Container DefaultLimits 是Pod 中所有未指定Limits 值Container 的默认Limits 值
+# Container Min <= Default Requese <= Default Requese <= Max 
+# Container maxLimitRequestRatio 限制了Pod中所有Container Limits值的比例上限
+
+# Pod ：
+# Pod Min 是Pod 中所有Container Requests值总和的下限
+# Pod Max 是Pod 中所有Container Limits值总和的上限。
+# Pod maxLimitRequestRatio 限制了Pod中所有Container Limits值总和的比例上限
+
+# maxLimitRequesRatio 是Request 和 Limit 值的最大比例
+##    如： Request CPU 1  Limit CPU 最大值只能是 2
+
+# 如果设置了Container Max ， 整个集群中所有Container 必须设置Limits。
+##    Pod 内的Container 未配置Limits时，将使用Default Limit 
+##    如果DefaultLimit 未配置则无法创建成功。
+
+# 如果设置了Container Min ， 整个集群中所有Container 必须设置Requests 。
+##    Pod 内的Container 未配置Requests 时，将使用DefaultRequest 
+##    如果DefaultRequest 未配置时默认使用DefautlLimit 
+##    如果DefaultLimit 未配置则无法创建成功。
+
+# 任何Pod ， 该Pod 中所有的Container  Requests 总和必须 大于或等于 Pod Limits  Min  ，
+##    所有Container  Limits 总和必须小于或等于 Pod Limits Max 
+
+

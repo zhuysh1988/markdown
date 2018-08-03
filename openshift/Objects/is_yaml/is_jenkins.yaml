@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  annotations:
+    openshift.io/display-name: Jenkins
+    openshift.io/image.dockerRepositoryCheck: 2018-06-29T15:34:13Z
+  creationTimestamp: null
+  generation: 2
+  name: jenkins
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      description: |-
+        Provides a Jenkins server on RHEL 7. For more information about using this container image, including OpenShift considerations, see https://github.com/openshift/jenkins/blob/master/README.md.
+
+        WARNING: By selecting this tag, your application will automatically update to use the latest version of Jenkins available on OpenShift, including major versions updates.
+      iconClass: icon-jenkins
+      openshift.io/display-name: Jenkins (Latest)
+      openshift.io/provider-display-name: Red Hat, Inc.
+      tags: jenkins
+    from:
+      kind: ImageStreamTag
+      name: "2"
+    generation: 1
+    importPolicy: {}
+    name: latest
+    referencePolicy:
+      type: Source
+status:
+  dockerImageRepository: ""

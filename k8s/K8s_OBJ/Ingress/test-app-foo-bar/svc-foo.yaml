@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service-name: svc-nginx-foo
+  name: svc-nginx-foo
+spec:
+  clusterIP: 
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: nginx-foo
+  sessionAffinity: None
+#  sessionAffinity: ClientIP  
+#  此配置项可保持基于客户端IP的方式进行负载
+  type: ClusterIP

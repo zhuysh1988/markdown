@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-sql-file-pv
+  labels:
+    name: mysql-sql-file-pv
+spec:
+  accessModes:
+    - ReadOnlyMany
+  capacity:
+    storage: 1Mi
+  nfs:
+    path: /nfs/mysql-sql-file
+    server: 192.168.6.85
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-sql-file-pvc
+  labels:
+    name: mysql-sql-file-pvc
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+     requests:
+      storage: 1Mi
+  selector:
+    matchLabels:
+      name: mysql-sql-file-pv
+

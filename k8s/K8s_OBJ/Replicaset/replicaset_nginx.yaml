@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+  ownerReferences:
+  - apiVersion: extensions/v1beta1
+    controller: true
+    kind: Deployment
+    name: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

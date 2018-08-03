@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    component: rbd-provisioner
+  name: ceph-rbd-provisioner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: rbd-provisioner
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: rbd-provisioner
+    spec:
+      serviceAccount: rbd-provisioner
+      containers:
+      - command:
+        - /tmp/rbd-provisioner.sh
+        env:
+        - name: PROVISIONER_NAME
+          value: ceph.com/rbd
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        image: registry.cn-hangzhou.aliyuncs.com/jhr-k8s/rbd-provisioner:v0.1.1
+        imagePullPolicy: IfNotPresent
+        name: ceph-rbd-provisioner
+        volumeMounts:
+        - mountPath: /tmp/rbd-provisioner.sh
+          name: ceph-bin
+          readOnly: true
+          subPath: rbd-provisioner.sh
+      volumes:
+      - configMap:
+          defaultMode: 365
+          name: ceph-bin
+        name: ceph-bin
+---
+apiVersion: v1
+data:
+  rbd-provisioner.sh: |
+    #!/bin/bash
+
+    set -ex
+
+    exec /usr/local/bin/rbd-provisioner -id ${POD_NAME}
+
+kind: ConfigMap
+metadata:
+  name: ceph-bin

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service-name: svc-app-example
+  name: svc-app-example
+spec:
+  clusterIP: 
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: app-example
+  sessionAffinity: None
+#  sessionAffinity: ClientIP  
+#  #  此配置项可保持基于客户端IP的方式进行负载
+#    type: ClusterIP
+#

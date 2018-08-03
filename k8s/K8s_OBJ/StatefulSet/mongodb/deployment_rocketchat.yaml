@@ -1,0 +1,45 @@
+spec:
+  replicas: 1
+  selector:
+    app: rocketchat
+    deployment: rocketchat-1
+    deploymentconfig: rocketchat
+  template:
+    metadata:
+      annotations:
+        openshift.io/deployment-config.latest-version: '1'
+        openshift.io/deployment-config.name: rocketchat
+        openshift.io/deployment.name: rocketchat-1
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        app: rocketchat
+        deployment: rocketchat-1
+        deploymentconfig: rocketchat
+    spec:
+      containers:
+        - env:
+            - name: MONGO_URL
+              value: >-
+                mongodb://mongodb_user:mongodb_password@mongodb:27017/mongodb?replicaSet=rs0
+          image: >-
+            docker.io/rocketchat/rocket.chat@sha256:04ff52eb15fbbe542d29e787b72840f7b995f4384d2603cc0c5c9f62d18ffa42
+          imagePullPolicy: IfNotPresent
+          name: rocketchat
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /app/uploads
+              name: rocketchat-volume-1
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - emptyDir: {}
+          name: rocketchat-volume-1

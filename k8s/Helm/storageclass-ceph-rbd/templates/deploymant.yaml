@@ -1,0 +1,57 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.rbac }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{ .Values.lables.company.key }}: {{ .Values.lables.company.value }}
+    {{ .Values.lables.department.key }}: {{ .Values.lables.department.value }}
+    {{ .Values.lables.group.key }}: {{ .Values.lables.group.value }}
+    {{ .Values.lables.environment.key }}: {{ .Values.lables.environment.value }}
+    app: {{ .Values.rbac }}
+    version: {{ .Chart.Version | replace "+" "_" }}    
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate 
+  template:
+    metadata:
+      labels:
+        {{ .Values.lables.company.key }}: {{ .Values.lables.company.value }}
+        {{ .Values.lables.department.key }}: {{ .Values.lables.department.value }}
+        {{ .Values.lables.group.key }}: {{ .Values.lables.group.value }}
+        {{ .Values.lables.environment.key }}: {{ .Values.lables.environment.value }}
+        app: {{ .Values.rbac }}
+        version: {{ .Chart.Version | replace "+" "_" }}
+    spec:
+      serviceAccount: {{ .Values.rbac }}
+      containers:
+        - command:
+          - /tmp/rbd-provisioner.sh
+          env:
+          - name: PROVISIONER_NAME
+            value: ceph.com/rbd
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: {{ .Values.rbac }}
+          volumeMounts:
+          - mountPath: /tmp/rbd-provisioner.sh
+            name: ceph-bin
+            readOnly: true
+            subPath: rbd-provisioner.sh
+      volumes:
+      - configMap:
+          defaultMode: 365
+          name: ceph-bin
+        name: ceph-bin
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}

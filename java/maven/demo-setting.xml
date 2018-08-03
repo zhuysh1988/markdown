@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<settings>
+  <mirrors>
+    <mirror>
+      <id>Nexus</id>
+      <name>Nexus Public Mirror</name>
+      <url>http://192.168.1.119:30881/repository/demo-hello/</url>
+      <mirrorOf>*</mirrorOf>
+    </mirror>
+  </mirrors>
+  <servers>
+  <server>
+    <id>nexus</id>
+    <username>admin</username>
+    <password>admin123</password>
+  </server>
+</servers>
+</settings>

@@ -1,0 +1,62 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: {{ .Values.rbac }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{ .Values.lables.company.key }}: {{ .Values.lables.company.value }}
+    {{ .Values.lables.department.key }}: {{ .Values.lables.department.value }}
+    {{ .Values.lables.group.key }}: {{ .Values.lables.group.value }}
+    {{ .Values.lables.environment.key }}: {{ .Values.lables.environment.value }}
+    app: {{ .Values.rbac }}
+    version: {{ .Chart.Version | replace "+" "_" }}    
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate 
+  template:
+    metadata:
+      labels:
+        {{ .Values.lables.company.key }}: {{ .Values.lables.company.value }}
+        {{ .Values.lables.department.key }}: {{ .Values.lables.department.value }}
+        {{ .Values.lables.group.key }}: {{ .Values.lables.group.value }}
+        {{ .Values.lables.environment.key }}: {{ .Values.lables.environment.value }}
+        app: {{ .Values.rbac }}
+        version: {{ .Chart.Version | replace "+" "_" }}
+    spec:
+      serviceAccount: {{ .Values.rbac }}
+      containers:
+        - name: {{ .Values.rbac }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          env:
+            - name: PROVISIONER_NAME
+              value: {{ .Values.provisioner.name }}
+            {{- if .Values.provisioner.nfs }}
+            - name: NFS_SERVER
+              value: {{ .Values.provisioner.nfsserver }}
+            - name: NFS_PATH
+              value: {{ .Values.provisioner.nfspath }}
+            {{- else }}
+            - name: SERVICE_NAME
+              value: {{ .Values.provisioner.name }}
+            {{ end }}            
+          imagePullPolicy: {{ .Values.image.imagepullpolicy }}
+          volumeMounts:
+            - name: export-volume
+              mountPath: /persistentvolumes
+      volumes:
+        - name: export-volume
+          {{- if .Values.provisioner.nfs }}
+          nfs:
+            server: {{ .Values.provisioner.nfsserver }}
+            path: {{ .Values.provisioner.nfspath }}
+          {{- else }}
+          hostPath:
+            path: {{ .Values.provisioner.localpath }}
+          {{ end }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
